@@ -36,5 +36,5 @@ CREATE TABLE whosworking(
 	id SERIAL PRIMARY KEY,
 	employee_id REFERENCES employees(id),
 	shift_id REFERENCES shifts(id),
-	date VARCHAR(128)
+	date DATE
 );
