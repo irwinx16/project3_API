@@ -18,40 +18,40 @@ Employer should be able to login.
 
 Employee Table
 
--ID
--Name
--Position
--Notes
--Availability
--Present 
--Shift_ID
--(Picture)
--(How long have been working) (store data as start date)
+- ID
+- Name
+- Position
+- Notes
+- Availability
+- Present 
+- Shift_ID
+- (Picture)
+- (How long have been working) (store data as start date)
 
 
 Employer Table
 
--ID
--Name
--Username
--Password
--(Picture)
+- ID
+- Name
+- Username
+- Password
+- (Picture)
 
 Shift Table
 
--ID
--Name
--Start
--End
--Notes
--Employee_ID
+- ID
+- Name
+- Start
+- End
+- Notes
+- Employee_ID
 
 WhosWorking Table
 
--ID
--Employee_ID
--Shift_ID (enum)
--Date
+- ID
+- Employee_ID
+- Shift_ID (enum)
+- Date
 
 
 ## Wireframe
