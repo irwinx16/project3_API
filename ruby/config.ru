@@ -9,6 +9,7 @@ require './models/WhosWorkingModel'
 
 # controllers
 require './controllers/ApplicationController'
+require './controllers/EmployerController'
 require './controllers/EmployeeController'
 require './controllers/ShiftController'
 require './controllers/WhosWorkingController'
@@ -16,6 +17,9 @@ require './controllers/WhosWorkingController'
 # routes
 map('/') {
 	run ApplicationController
+}
+map('/employers') {
+	run EmployerController
 }
 map('/employees') {
 	run EmployeeController

@@ -1,0 +1,3 @@
+class EmployerController < ApplicationController
+
+end

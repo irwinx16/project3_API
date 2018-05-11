@@ -6,10 +6,10 @@ CREATE DATABASE employer;
 
 CREATE TYPE role AS ENUM ('server', 'bartender', 'chef', 'manager');
 
-CREATE TABLE employer(
+CREATE TABLE employers(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(128),
-	password VARCHAR(256),
+	password_digest VARCHAR(256),
 	employee_id REFERENCES employees(id)
 );
 
@@ -26,8 +26,8 @@ CREATE TABLE employees(
 CREATE TABLE shifts(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(128),
-	start DATETIME,
-	end DATETIME,
+	start_shift DATETIME,
+	end_shift DATETIME,
 	notes VARCHAR(256),
 	employee_id REFERENCES employees(id)
 );
@@ -36,5 +36,5 @@ CREATE TABLE whosworking(
 	id SERIAL PRIMARY KEY,
 	employee_id REFERENCES employees(id),
 	shift_id REFERENCES shifts(id),
-	date DATE
+	day DATE
 );

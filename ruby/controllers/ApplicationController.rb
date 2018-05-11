@@ -9,6 +9,10 @@ class ApplicationController < Sinatra::Base
 		:database => 'employer'
 	)
 
+	use Rack::Session::Cookie,	:key => 'rack.session',
+								:path => '/',
+								:secret => 'your_secret'
+
 	get '/' do
 		{
 			success: false,
