@@ -28,14 +28,13 @@ Employee Table
 - (Picture)
 - (How long have been working) (store data as start date)
 
-
 Employer Table
 
 - ID
 - Name
 - Username
 - Password
-- (Picture)
+- employee_id
 
 Shift Table
 
@@ -45,6 +44,7 @@ Shift Table
 - End
 - Notes
 - Employee_ID
+
 
 WhosWorking Table
 
