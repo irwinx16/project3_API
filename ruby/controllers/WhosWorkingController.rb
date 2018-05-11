@@ -1,0 +1,3 @@
+class WhosWorkingController < ApplicationController
+
+end

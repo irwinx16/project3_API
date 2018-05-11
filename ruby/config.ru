@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'sinatra/activerecord'
 
 # models
-require './models/UserModel'
+require './models/EmployerModel'
 require './models/EmployeeModel'
 require './models/ShiftModel'
 require './models/WhosWorkingModel'
