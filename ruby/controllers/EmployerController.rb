@@ -59,7 +59,7 @@ class EmployerController < ApplicationController
 		{
 			success: true,
 			message: "You're now Logout"
-		}
+		}.to_json
 	end
 
 
