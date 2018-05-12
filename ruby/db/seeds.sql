@@ -1,0 +1,1 @@
+INSERT INTO employers (username, password) VALUES ('irwin', 'irwin');

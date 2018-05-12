@@ -10,7 +10,7 @@ CREATE TABLE employers(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(128),
 	password_digest VARCHAR(256),
-	employee_id REFERENCES employees(id)
+	employee_id INT REFERENCES employees(id)
 );
 
 CREATE TABLE employees(
@@ -20,7 +20,7 @@ CREATE TABLE employees(
 	notes VARCHAR(256),
 	availability VARCHAR(256),
 	present BOOLEAN,
-	shift_id REFERENCES shifts(id)
+	shift_id INT REFERENCES shifts(id)
 );
 
 CREATE TABLE shifts(
@@ -29,12 +29,12 @@ CREATE TABLE shifts(
 	start_shift DATETIME,
 	end_shift DATETIME,
 	notes VARCHAR(256),
-	employee_id REFERENCES employees(id)
+	employee_id INT REFERENCES employees(id)
 );
 
 CREATE TABLE whosworking(
 	id SERIAL PRIMARY KEY,
-	employee_id REFERENCES employees(id),
-	shift_id REFERENCES shifts(id),
+	employee_id INT REFERENCES employees(id),
+	shift_id INT REFERENCES shifts(id),
 	day DATE
 );
