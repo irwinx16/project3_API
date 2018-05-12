@@ -18,9 +18,9 @@ class WhosWorkingController < ApplicationController
 	get '/' do
 
 		whosworking = WhosWorking.all
-		whosworking.employee_id = @payload[:employee_id]
-		whosworking.shift_id = @payload[:shift_id]
-		whosworking.date = @payload[:date]
+		# whosworking.employee_id = @payload[:employee_id]
+		# whosworking.shift_id = @payload[:shift_id]
+		# whosworking.date = @payload[:date]
 		{
 			success: true,
 			message: "Here are all employees working now #{whosworking.length}.",
