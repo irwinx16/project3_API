@@ -11,6 +11,7 @@ CREATE TYPE role AS ENUM ('server', 'bartender', 'chef', 'manager');
 CREATE TABLE shifts(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(128),
+	# time datatype is being returned in a weird way. change data type?
 	start_shift TIME,
 	end_shift TIME,
 	notes VARCHAR(256)

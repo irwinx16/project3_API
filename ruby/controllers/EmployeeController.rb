@@ -61,7 +61,7 @@ class EmployeeController < ApplicationController
 	# edit route
 	put '/:id' do
 
-		updated_employee = Employee.new
+		updated_employee = Employee.find params[:id]
 		updated_employee.name = @payload[:name]
 		updated_employee.position = @payload[:position]
 		updated_employee.notes = @payload[:notes]
@@ -77,7 +77,7 @@ class EmployeeController < ApplicationController
 
 	end
 
-	# delete route
+	# delete route (not working if they are referenced in whosworking table)
 	delete '/:id' do
 		
 		deleted_employee = Employee.find params[:id]

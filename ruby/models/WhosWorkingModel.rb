@@ -1,3 +1,3 @@
-class WhosWorking < ActiveRecord::Base
+class Whosworking < ActiveRecord::Base
 
 end
