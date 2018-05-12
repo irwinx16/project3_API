@@ -42,7 +42,6 @@ class ShiftController < ApplicationController
 		new_shift.start_shift = @payload[:start_shift]
 		new_shift.end_shift = @payload[:end_shift]
 		new_shift.notes = @payload[:notes]
-		new_shift.employee_id = @payload[:employee_id]
 		new_shift.save
 		{
 			success: true,
@@ -59,7 +58,6 @@ class ShiftController < ApplicationController
 		updated_shift.start_shift = @payload[:start_shift]
 		updated_shift.end_shift = @payload[:end_shift]
 		updated_shift.notes = @payload[:notes]
-		updated_shift.employee_id = @payload[:employee_id]
 		updated_shift.save
 		{
 			success: true,
