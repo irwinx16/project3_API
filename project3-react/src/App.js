@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import EmployeeContainer from './EmployeeContainer';
+import EmployerContainer from './EmployerContainer';
+import ShiftContainer from './ShiftContainer';
+import LoginRegister from './LoginRegister';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+      loginError: ''
+    }
+  }
+  componentDidMount() {
+
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <EmployeeContainer />
+        <EmployerContainer />
+        <ShiftContainer />
+        <LoginRegister />
       </div>
     );
   }
