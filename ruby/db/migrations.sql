@@ -33,10 +33,3 @@ CREATE TABLE employers(
 	password_digest VARCHAR(256),
 	employee_id INT REFERENCES employees(id) ON DELETE CASCADE
 );
-
-CREATE TABLE whosworking(
-	id SERIAL PRIMARY KEY,
-	employee_id INT REFERENCES employees(id) ON DELETE CASCADE,
-	shift_id INT REFERENCES shifts(id) ON DELETE SET NULL,
-	day DATE
-);
