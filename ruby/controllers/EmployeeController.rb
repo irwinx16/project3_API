@@ -10,7 +10,6 @@ class EmployeeController < ApplicationController
 	      puts "-----------------------------------------------HERE IS OUR PAYLOAD"
 	      pp @payload
 	      puts "-----------------------------------------------------------------"
-
 	    end
 	    
   	end
@@ -27,7 +26,17 @@ class EmployeeController < ApplicationController
 
 	end
 
-	# show route
+	# who's working get route
+	get '/whosworking' do
+		whosworking = Employee.where ({present: true})
+		{
+			success: true,
+			message: "Here are all #{whosworking.length} employees currently working.",
+			whosworking: whosworking
+		}.to_json
+	end
+	
+	# employee show route
 	get '/:id' do
 
 		shown_employee = Employee.find params[:id]
@@ -61,7 +70,7 @@ class EmployeeController < ApplicationController
 	# edit route
 	put '/:id' do
 
-		updated_employee = Employee.new
+		updated_employee = Employee.find params[:id]
 		updated_employee.name = @payload[:name]
 		updated_employee.position = @payload[:position]
 		updated_employee.notes = @payload[:notes]
@@ -89,5 +98,7 @@ class EmployeeController < ApplicationController
 		}.to_json
 
 	end
+
+	
 
 end

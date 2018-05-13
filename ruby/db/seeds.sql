@@ -15,9 +15,3 @@ INSERT INTO employees (name, position, notes, availability, present, shift_id) V
 -- employers data
 
 INSERT INTO employers (username, password_digest, employee_id) VALUES ('markymark', 'mark', 5);
-
--- whosworking data
-
-INSERT INTO whosworking (employee_id, shift_id, day) VALUES (1, 1, '2018-05-10');
-INSERT INTO whosworking (employee_id, shift_id, day) VALUES (2, 1, '2018-05-10');
-INSERT INTO whosworking (employee_id, shift_id, day) VALUES (5, 1, '2018-05-10');

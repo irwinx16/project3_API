@@ -5,32 +5,32 @@ class ShiftController < ApplicationController
 		payload_body = request.body.read
 
 		if(payload_body != "")
-  	@payload = JSON.parse(payload_body).symbolize_keys
+		  	@payload = JSON.parse(payload_body).symbolize_keys
 
-  	puts "-----------------------------------------------HERE IS OUR PAYLOAD"
-  	pp @payload
-  	puts "-----------------------------------------------------------------"
+		  	puts "-----------------------------------------------HERE IS OUR PAYLOAD"
+		  	pp @payload
+		  	puts "-----------------------------------------------------------------"
 		end
 	end
 
-	#get route
-
+	# get route
 	get '/' do
 		shifts = Shift.all
 		{
-			succes: true,
-			message: "These are all Shift #{shifts.length}"
+			success: true,
+			message: "These are all #{shifts.length} shifts.",
+			shifts: shifts
 		}.to_json	
 	end
 
 	# show route
 	get '/:id' do
 
-		show_shift = Shift.find params[:id]
+		shown_shift = Shift.find params[:id]
 		{
 			success: true,
-			message: "Here is more information about #{show_shift.name}",
-			show_shift: show_shift
+			message: "Here is more information about #{shown_shift.name}",
+			shown_shift: shown_shift
 		}.to_json
 	end
 
@@ -53,7 +53,7 @@ class ShiftController < ApplicationController
 	# edit route
 	put '/:id' do
 
-		updated_shift = Shift.new
+		updated_shift = Shift.find params[:id]
 		updated_shift.name = @payload[:name]
 		updated_shift.start_shift = @payload[:start_shift]
 		updated_shift.end_shift = @payload[:end_shift]
@@ -73,17 +73,9 @@ class ShiftController < ApplicationController
 		deleted_shift.destroy
 		{
 			success: true,
-			message: "You have successfully deteled #{deleted_shift.name}.",
+			message: "You have successfully deleted #{deleted_shift.name}.",
 			deleted_shift: deleted_shift
 		}.to_json
 	end
-
-
-
-
-
-
-
-
 
 end

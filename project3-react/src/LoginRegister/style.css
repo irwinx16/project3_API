@@ -1,0 +1,17 @@
+.current {
+	background-color: black;
+	color: white;
+}
+span {
+	cursor: pointer;
+	text-decoration: underline;
+}
+span:hover {
+	color: white;
+	background-color: black;
+}
+.login-error {
+	border: 1px solid red;
+	padding: 20px;
+	background-color: pink;
+}

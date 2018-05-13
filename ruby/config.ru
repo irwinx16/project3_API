@@ -5,14 +5,12 @@ require 'sinatra/activerecord'
 require './models/EmployerModel'
 require './models/EmployeeModel'
 require './models/ShiftModel'
-require './models/WhosWorkingModel'
 
 # controllers
 require './controllers/ApplicationController'
 require './controllers/EmployerController'
 require './controllers/EmployeeController'
 require './controllers/ShiftController'
-require './controllers/WhosWorkingController'
 
 # routes
 map('/') {
@@ -26,7 +24,4 @@ map('/employees') {
 }
 map('/shifts') {
 	run ShiftController
-}
-map('/whosworking') {
-	run WhosWorkingController
 }
