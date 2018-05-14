@@ -4,6 +4,7 @@ import EmployeeContainer from './EmployeeContainer';
 import EmployerContainer from './EmployerContainer';
 import ShiftContainer from './ShiftContainer';
 import LoginRegister from './LoginRegister';
+import EmployeeProfile from './EmployeeProfile';
 
 class App extends Component {
   constructor() {
@@ -12,7 +13,9 @@ class App extends Component {
       employees: [],
       whosWorking: [],
       loggedIn: false,
-      loginError: ''
+      loginError: '',
+      showingEmployee: false,
+      employeeId: ''
     }
   }
   componentDidMount() {
@@ -92,7 +95,6 @@ class App extends Component {
 
       this.getWhosWorking()
       .then((response) => {
-        console.log(response.whosworking, " this is response in getWhosWorking");
         this.setState({
           whosWorking: response.whosworking
         })
@@ -167,16 +169,29 @@ class App extends Component {
       });
     }
   }
-  
+  showEmployee = (e) => {
+    const id = e.currentTarget.id;
+    this.setState({
+      showingEmployee: true,
+      employeeId: id
+    })
+  }
+  returnToMainPage = () => {
+    this.setState({
+      showingEmployee: false
+    })
+  }
   render() {
-    console.log(this.state.whosWorking, " this is whosWorking in App.js");
     return (
       <div className="App">
         {this.state.loggedIn ?
           <div> 
-            <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking}/>
-            <EmployerContainer employers={this.state.employers}/>
-            <ShiftContainer shifts={this.state.shifts}/>
+          {this.state.showingEmployee ?
+            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}/>
+          : <div>
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployee={this.showEmployee}/>
+            </div>
+          }
           </div>
         : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} />
         }

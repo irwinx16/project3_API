@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WhosWorkingList = ({whosWorking}) => {
+const WhosWorkingList = ({whosWorking, showEmployeeList}) => {
 	const WhosWorkingList = whosWorking.map((employee, i) => {
 		return (
 			<li key={i}>
@@ -14,6 +14,7 @@ const WhosWorkingList = ({whosWorking}) => {
 			<ul>
 				{WhosWorkingList}
 			</ul>
+			<button onClick={showEmployeeList}>Show all Employees</button>
 		</div>
 	);
 }

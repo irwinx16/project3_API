@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EmployeeList from '../EmployeeList';
 import WhosWorkingList from '../WhosWorkingList';
-import EmployeeProfile from '../EmployeeProfile';
+import HireEmployeeModal from '../HireEmployeeModal';
 import './style.css';
 
 class EmployeeContainer extends Component {
@@ -12,9 +12,7 @@ class EmployeeContainer extends Component {
 			whosWorking: [],
 			showEdit: false,
 			editedEmployee: '',
-			showAllEmployees: false,
-			employeeId: '',
-			showingEmployee: false
+			showAllEmployees: false
 		}
 	}
 	componentWillReceiveProps(nextProps){
@@ -24,20 +22,21 @@ class EmployeeContainer extends Component {
 			whosWorking: nextProps.whosWorking
 		});
 	}
-	showEmployee = (e) => {
-		const id = e.currentTarget.id;
+	componentDidMount() {
 		this.setState({
-			showingEmployee: true,
-			employeeId: id
+			employees: this.props.employees,
+			whosWorking: this.props.whosWorking
 		})
+	}
+	hireEmployee = async (e) => {
 
 	}
-	// componentDidMount() {
-	// 	this.setState({
-	// 		employees: this.props.employees,
-	// 		whosWorking: this.props.whosWorking
-	// 	})
-	// }
+	showEmployeeList = () => {
+		this.setState({showAllEmployees: true})
+	}
+	showWorkingEmployees = () => {
+		this.setState({showAllEmployees: false})
+	}
 	// showEdit = (e) => {
 	// 	const employeeId = parseInt(e.target.nextSibling.id);
 	// 	const editedEmployee = this.state.employees.find((employee) => {
@@ -77,14 +76,11 @@ class EmployeeContainer extends Component {
 		return (
 			<div>
 				<h1> Welcome to the website. </h1>
-				{ this.state.showingEmployee ?
-					<EmployeeProfile employeeId={this.state.employeeId} employees={this.state.employees}/>
-				:	<div> 
-						<EmployeeList employees={this.state.employees} showEmployee={this.showEmployee} />
-						<WhosWorkingList whosWorking={this.state.whosWorking} />
-					</div>
+				{ this.state.showAllEmployees ?
+					<EmployeeList employees={this.state.employees} showEmployee={this.props.showEmployee} showWorkingEmployees={this.showWorkingEmployees}/>
+				:
+					<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeList ={this.showEmployeeList}/>
 				}
-
 			</div>
 		);
 	}
