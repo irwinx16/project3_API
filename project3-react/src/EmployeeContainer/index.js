@@ -20,13 +20,12 @@ class EmployeeContainer extends Component {
 			whosWorking: nextProps.whosWorking
 		});
 	}
-	
-	// componentDidMount() {
-	// 	this.setState({
-	// 		employees: this.props.employees,
-	// 		whosWorking: this.props.whosWorking
-	// 	})
-	// }
+	componentDidMount() {
+		this.setState({
+			employees: this.props.employees,
+			whosWorking: this.props.whosWorking
+		})
+	}
 	// showEdit = (e) => {
 	// 	const employeeId = parseInt(e.target.nextSibling.id);
 	// 	const editedEmployee = this.state.employees.find((employee) => {

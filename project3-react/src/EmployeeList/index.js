@@ -6,7 +6,6 @@ const EmployeeList = ({employees, showEmployee}) => {
 		return (
 			<li key={employee.id} id={employee.id} onClick={showEmployee}>
 				<b>Name:</b> {employee.name} <b>Position:</b> {employee.position}
-				ID: {employee.id}
 			</li>
 		)
 	})

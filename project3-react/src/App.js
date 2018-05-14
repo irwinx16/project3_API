@@ -19,7 +19,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
-
+    
   }
 
   getEmployees = async () => {
@@ -95,7 +95,6 @@ class App extends Component {
 
       this.getWhosWorking()
       .then((response) => {
-        console.log(response.whosworking, " this is response in getWhosWorking");
         this.setState({
           whosWorking: response.whosworking
         })
@@ -177,13 +176,18 @@ class App extends Component {
       employeeId: id
     })
   }
+  returnToMainPage = () => {
+    this.setState({
+      showingEmployee: false
+    })
+  }
   render() {
     return (
       <div className="App">
         {this.state.loggedIn ?
           <div> 
           {this.state.showingEmployee ?
-            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} />
+            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}/>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployee={this.showEmployee}/>
               <EmployerContainer employers={this.state.employers}/>
