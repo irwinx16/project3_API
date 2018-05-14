@@ -3,8 +3,8 @@ class ShiftController < ApplicationController
 	before do
 
 		payload_body = request.body.read
-
-		if(payload_body != "")
+		# making sure that it is not empty
+		if !payload_body.empty?
 		  	@payload = JSON.parse(payload_body).symbolize_keys
 
 		  	puts "-----------------------------------------------HERE IS OUR PAYLOAD"
@@ -36,13 +36,13 @@ class ShiftController < ApplicationController
 
 	# create route
 	post '/' do
-
-		new_shift = Shift.new
-		new_shift.name = @payload[:name]
-		new_shift.start_shift = @payload[:start_shift]
-		new_shift.end_shift = @payload[:end_shift]
-		new_shift.notes = @payload[:notes]
-		new_shift.save
+		new_shift = Shift.create(
+			name: 			 @payload[:name],
+			employee_id: @payload[:employee_id],
+			start_shift: @payload[:start_shift],
+			end_shift:   @payload[:end_shift],
+			notes: 	 		 @payload[:notes]
+		)
 		{
 			success: true,
 			message: "You have successfully added #{new_shift.name}.",
@@ -53,11 +53,12 @@ class ShiftController < ApplicationController
 	# edit route
 	put '/:id' do
 
-		updated_shift = Shift.find params[:id]
-		updated_shift.name = @payload[:name]
+		updated_shift 						= Shift.find params[:id]
+		updated_shift.name 				= @payload[:name]
+		updated_shift.employee_id = @payload[:employee_id]
 		updated_shift.start_shift = @payload[:start_shift]
-		updated_shift.end_shift = @payload[:end_shift]
-		updated_shift.notes = @payload[:notes]
+		updated_shift.end_shift 	= @payload[:end_shift]
+		updated_shift.notes 			= @payload[:notes]
 		updated_shift.save
 		{
 			success: true,

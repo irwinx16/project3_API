@@ -6,9 +6,9 @@ class EmployerController < ApplicationController
 		if(payload_body != "")
 			@payload = JSON.parse(payload_body).symbolize_keys
 
-				puts "-------PAYLOAD HERE----------------------------"
+				logger.info "-------PAYLOAD HERE----------------------------"
 				pp @payload
-				puts "-----------------------------------"
+				logger.info "-----------------------------------"
 		end
 	end
 
@@ -22,38 +22,13 @@ class EmployerController < ApplicationController
 		}.to_json
 	end
 
-	# show route
-	get '/:id' do
-		shown_employer = Employer.find params[:id]
+	# logout route
+	get '/logout' do
+		username = session[:username]
+		session.destroy
 		{
 			success: true,
-			message: "Here's more information about #{shown_employer.username}.",
-			shown_employer: shown_employer
-		}.to_json
-	end
-
-	# edit route
-	put '/:id' do
-		updated_employer = Employer.find params[:id]
-		updated_employer.username = @payload[:username]
-
-		# not sure if this actually will update the password when they login, but it works in json
-		updated_employer.password_digest = @payload[:password]
-		updated_employer.save
-		{
-			success: true,
-			message: "#{updated_employer.username} successfully updated.",
-			updated_employer: updated_employer
-		}.to_json
-	end
-
-	# delete route
-	delete '/:id' do
-		deleted_employer = Employer.find params[:id]
-		deleted_employer.destroy
-		{
-			success: true,
-			message: "#{deleted_employer.username} successfully deleted."
+			message: "#{username} has logged out."
 		}.to_json
 	end
 
@@ -100,14 +75,38 @@ class EmployerController < ApplicationController
 		end
 	end
 
-	# logout route
-	get '/logout' do
-		username = session[:username]
-		session.destroy
+	# show route
+	get '/:id' do
+		shown_employer = Employer.find params[:id]
 		{
 			success: true,
-			message: "#{username} has logged out."
+			message: "Here's more information about #{shown_employer.username}.",
+			shown_employer: shown_employer
 		}.to_json
 	end
 
+	# edit route
+	put '/:id' do
+		updated_employer = Employer.find params[:id]
+		updated_employer.username = @payload[:username]
+
+		# not sure if this actually will update the password when they login, but it works in json
+		updated_employer.password_digest = @payload[:password]
+		updated_employer.save
+		{
+			success: true,
+			message: "#{updated_employer.username} successfully updated.",
+			updated_employer: updated_employer
+		}.to_json
+	end
+
+	# delete route
+	delete '/:id' do
+		deleted_employer = Employer.find params[:id]
+		deleted_employer.destroy
+		{
+			success: true,
+			message: "#{deleted_employer.username} successfully deleted."
+		}.to_json
+	end
 end
