@@ -1,9 +1,8 @@
 import React from 'react';
 import './style.css';
 
-const EmployeeProfile = ({employeeId, employees}) => {
+const EmployeeProfile = ({employees, employeeId}) => {
 	const returnEmployee = employees.filter(employee => employee.id == employeeId);
-	console.log(returnEmployee, " this is returnEmployee");
 	const shownEmployee = returnEmployee[0];
 	return (
 		<div>
@@ -14,6 +13,7 @@ const EmployeeProfile = ({employeeId, employees}) => {
 				<b> Notes: </b> {shownEmployee.notes} <br/>
 				<b> Availability: </b> {shownEmployee.availability}
 			</p>
+			<button>Return to Main Page</button>
 		</div>
 	);
 }
