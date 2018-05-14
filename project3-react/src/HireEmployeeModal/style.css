@@ -1,0 +1,15 @@
+.hide {
+	display: none;
+}
+.show {
+	display: block;
+	position: absolute;
+	top: 35%;
+	left: 35%;
+	background-color: red;
+	border: 1px solid black;
+	z-index: 1000;
+	width: 200px;
+	height: 200px;
+	color: white;
+}

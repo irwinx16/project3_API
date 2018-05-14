@@ -1,20 +1,21 @@
 import React from 'react';
 import './style.css';
 
-const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees}) => {
+const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, showHireEmployeeModal, deleteEmployee}) => {
 	const employeeList = employees.map((employee, i) => {
 		return (
-			<li key={employee.id} id={employee.id} onClick={showEmployeeProfile}>
-				<b>Name:</b> {employee.name} <b>Position:</b> {employee.position}
-			</li>
-		)
+            <li key={employee.id} id={employee.id}>
+                <b>Name:</b> <span onClick={showEmployeeProfile}>{employee.name}</span> <b>Position:</b> {employee.position}
+                <button key={employee.id} onClick={deleteEmployee}>Delete</button>
+            </li>
+        )
 	})
 
 	return (
 		<div>
 			<h1> Here are all the employees: </h1>
-			<button> Hire New Employee </button> <br/>
-			<button onClick={showWorkingEmployees}> Show Working Employees</button>
+			<button onClick={showHireEmployeeModal}> Hire New Employee </button> <br/>
+			<button onClick={showWorkingEmployees}> Show Present Employees</button>
 			<ul>
 				{employeeList}
 			</ul>
