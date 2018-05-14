@@ -1,3 +1,6 @@
-ul *:hover {
+ul span:hover {
+	cursor: pointer;
+}
+ul button:hover {
 	cursor: pointer;
 }
