@@ -10,6 +10,7 @@ class App extends Component {
     super();
     this.state = {
       employees: [],
+      whosWorking: [],
       loggedIn: false,
       loginError: ''
     }
@@ -24,6 +25,13 @@ class App extends Component {
     });
     const employees = await employeesJson.json();
     return employees;
+  }
+  getWhosWorking = async () => {
+    const whosWorkingJson = await fetch('http://localhost:9292/employees/whosworking', {
+      credentials: 'include'
+    });
+    const whosWorking = await whosWorkingJson.json();
+    return whosWorking;
   }
   getShifts = async () => {
     const shiftsJson = await fetch('http://localhost:9292/shifts', {
@@ -53,7 +61,6 @@ class App extends Component {
     if (parsedLoginResponse.success) {
       this.getEmployees()
       .then((response) => {
-        console.log(response.employees, " this is the employees as a result of get employees in doLogin");
         this.setState({
           employees: response.employees,
           loggedIn: true
@@ -62,6 +69,38 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
+
+      this.getEmployers()
+      .then((response) => {
+        this.setState({
+          employers: response.employers
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+      this.getShifts()
+      .then((response) => {
+        this.setState({
+          shifts: response.shifts
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+      this.getWhosWorking()
+      .then((response) => {
+        console.log(response.whosworking, " this is response in getWhosWorking");
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
     } else {
       this.setState({
         loginError: parsedLoginResponse.message
@@ -112,6 +151,16 @@ class App extends Component {
         console.log(err);
       })
 
+      this.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
     } else {
       this.setState({
         loginError: parsedRegisterResponse.message
@@ -120,11 +169,12 @@ class App extends Component {
   }
   
   render() {
+    console.log(this.state.whosWorking, " this is whosWorking in App.js");
     return (
       <div className="App">
         {this.state.loggedIn ?
           <div> 
-            <EmployeeContainer employees={this.state.employees} />
+            <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking}/>
             <EmployerContainer employers={this.state.employers}/>
             <ShiftContainer shifts={this.state.shifts}/>
           </div>
