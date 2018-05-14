@@ -1,10 +1,10 @@
 import React from 'react';
 import './style.css';
 
-const EmployeeList = ({employees, showEmployee, showWorkingEmployees}) => {
+const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees}) => {
 	const employeeList = employees.map((employee, i) => {
 		return (
-			<li key={employee.id} id={employee.id} onClick={showEmployee}>
+			<li key={employee.id} id={employee.id} onClick={showEmployeeProfile}>
 				<b>Name:</b> {employee.name} <b>Position:</b> {employee.position}
 			</li>
 		)

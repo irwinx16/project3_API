@@ -77,9 +77,9 @@ class EmployeeContainer extends Component {
 			<div>
 				<h1> Welcome to the website. </h1>
 				{ this.state.showAllEmployees ?
-					<EmployeeList employees={this.state.employees} showEmployee={this.props.showEmployee} showWorkingEmployees={this.showWorkingEmployees}/>
+					<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees}/>
 				:
-					<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeList ={this.showEmployeeList}/>
+					<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile}showEmployeeList={this.showEmployeeList}/>
 				}
 			</div>
 		);

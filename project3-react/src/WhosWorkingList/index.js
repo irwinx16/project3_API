@@ -1,9 +1,9 @@
 import React from 'react';
 
-const WhosWorkingList = ({whosWorking, showEmployeeList}) => {
+const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList}) => {
 	const WhosWorkingList = whosWorking.map((employee, i) => {
 		return (
-			<li key={i}>
+			<li key={employee.id} id={employee.id} onClick={showEmployeeProfile}>
 				<b>Name:</b> {employee.name} <b>Position:</b> {employee.position}
 			</li>
 		)
