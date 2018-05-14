@@ -17,6 +17,7 @@ class App extends Component {
   componentDidMount() {
 
   }
+
   getEmployees = async () => {
     const employeesJson = await fetch('http://localhost:9292/employees', {
       credentials: 'include'
@@ -24,8 +25,22 @@ class App extends Component {
     const employees = await employeesJson.json();
     return employees;
   }
+  getShifts = async () => {
+    const shiftsJson = await fetch('http://localhost:9292/shifts', {
+      credentials: 'include'
+    });
+    const shifts = await shiftsJson.json();
+    return shifts;
+  }
+  getEmployers = async () => {
+    const employersJson = await fetch('http://localhost:9292/employers', {
+      credentials: 'include'
+    });
+    const employers = await employersJson.json();
+    return employers;
+  }
+
   doLogin = async (username, password) => {
-    console.log("you're trying to login");
     const response = await fetch('http://localhost:9292/employers/login', {
       method: 'POST',
       credentials: 'include', // you MUST include in ALL ajax requests
@@ -35,8 +50,6 @@ class App extends Component {
       }) 
     })
     const parsedLoginResponse = await response.json();
-    console.log("here's what we have now:");
-    console.log(parsedLoginResponse);
     if (parsedLoginResponse.success) {
       this.getEmployees()
       .then((response) => {
@@ -56,7 +69,6 @@ class App extends Component {
     }
   }
   doRegister = async (username, password) => {
-    console.log("you're trying to register");
     const response = await fetch('http://localhost:9292/employers/register', {
       method: 'POST',
       credentials: 'include', // you MUST include in ALL ajax requests
@@ -66,34 +78,55 @@ class App extends Component {
       }) 
     })
     const parsedRegisterResponse = await response.json();
-    console.log("here's what we have now:");
-    console.log(parsedRegisterResponse);
     if (parsedRegisterResponse.success) {
+
+      this.setState({loggedIn: true})
+
       this.getEmployees()
       .then((response) => {
         this.setState({
-          employees: response.employees,
-          loggedIn: true
+          employees: response.employees
         })
       })
       .catch((err) => {
         console.log(err);
       })
+
+      this.getEmployers()
+      .then((response) => {
+        this.setState({
+          employers: response.employers
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+      this.getShifts()
+      .then((response) => {
+        this.setState({
+          shifts: response.shifts
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
     } else {
       this.setState({
         loginError: parsedRegisterResponse.message
       });
     }
   }
+  
   render() {
-    console.log(this.state.employees, " this should be a list of the employees.");
     return (
       <div className="App">
         {this.state.loggedIn ?
           <div> 
             <EmployeeContainer employees={this.state.employees} />
-            <EmployerContainer />
-            <ShiftContainer />
+            <EmployerContainer employers={this.state.employers}/>
+            <ShiftContainer shifts={this.state.shifts}/>
           </div>
         : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} />
         }
