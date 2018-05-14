@@ -12,12 +12,11 @@ class EmployeeContainer extends Component {
 			whosWorking: [],
 			showEdit: false,
 			editedEmployee: '',
-			showAllEmployees: false,
+			showAllEmployees: true,
 			showHireModal: false
 		}
 	}
 	componentWillReceiveProps(nextProps){
-		console.log(nextProps, " this is nextProps from employee container");
 		this.setState({
 			employees: nextProps.employees,
 			whosWorking: nextProps.whosWorking
@@ -48,7 +47,8 @@ class EmployeeContainer extends Component {
 				{ this.state.showAllEmployees ?
 					<div>
 						<HireEmployeeModal hireEmployee={this.props.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal}/>
-						<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees} showHireEmployeeModal={this.showHireEmployeeModal}/>
+						<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees} showHireEmployeeModal={this.showHireEmployeeModal}
+							deleteEmployee={this.props.deleteEmployee}/>
 					</div>
 
 				:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile}showEmployeeList={this.showEmployeeList}/>

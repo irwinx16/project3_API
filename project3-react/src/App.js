@@ -17,10 +17,6 @@ class App extends Component {
       employeeId: ''
     }
   }
-  componentDidMount() {
-    
-  }
-
   getEmployees = async () => {
     const employeesJson = await fetch('http://localhost:9292/employees', {
       credentials: 'include'
@@ -169,7 +165,7 @@ class App extends Component {
     }
   }
   showEmployeeProfile = (e) => {
-    const id = e.currentTarget.id;
+    const id = e.currentTarget.parentNode.id;
     this.setState({
       showingEmployee: true,
       employeeId: id
@@ -192,6 +188,18 @@ class App extends Component {
         employees: [...this.state.employees, employeesParsed.new_employee]
       })
   }
+  deleteEmployee = async (e) => {
+    const id = e.currentTarget.parentNode.id;
+    console.log(id);
+    const employees = await fetch (`http://localhost:9292/employees/${id}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    });
+
+    this.setState({
+      employees: this.state.employees.filter((employee) => employee.id != id)
+    });
+  }
   render() {
     return (
       <div className="App">
@@ -200,7 +208,7 @@ class App extends Component {
           {this.state.showingEmployee ?
             <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}/>
           : <div>
-              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees}/>
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee}/>
             </div>
           }
           </div>
