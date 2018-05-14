@@ -13,7 +13,6 @@ class HireEmployeeModal extends Component {
 	}
 	updateName = (e) => {
 		const name = e.currentTarget.value;
-		console.log(name, " this is the name");
 		this.setState({
 			name: name
 		});

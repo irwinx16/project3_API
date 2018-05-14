@@ -34,6 +34,17 @@ class ShiftController < ApplicationController
 		}.to_json
 	end
 
+	# get employee's shifts
+	get '/employee/:employee_id' do
+
+		employee_shifts = Shift.where employee_id: params[:employee_id]
+		{
+			success: true,
+			message: "Here are all the shifts.",
+			employee_shifts: employee_shifts
+		}.to_json
+	end
+
 	# create route
 	post '/' do
 		new_shift = Shift.create(
