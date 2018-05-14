@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EmployeeList from '../EmployeeList';
 import WhosWorkingList from '../WhosWorkingList';
+import EmployeeProfile from '../EmployeeProfile';
 import './style.css';
 
 class EmployeeContainer extends Component {
@@ -11,7 +12,9 @@ class EmployeeContainer extends Component {
 			whosWorking: [],
 			showEdit: false,
 			editedEmployee: '',
-			showAllEmployees: false
+			showAllEmployees: false,
+			employeeId: '',
+			showingEmployee: false
 		}
 	}
 	componentWillReceiveProps(nextProps){
@@ -20,6 +23,14 @@ class EmployeeContainer extends Component {
 			employees: nextProps.employees,
 			whosWorking: nextProps.whosWorking
 		});
+	}
+	showEmployee = (e) => {
+		const id = e.currentTarget.id;
+		this.setState({
+			showingEmployee: true,
+			employeeId: id
+		})
+
 	}
 	// componentDidMount() {
 	// 	this.setState({
@@ -48,13 +59,17 @@ class EmployeeContainer extends Component {
 	// 	});
 	// }
 	render() {
-		console.log(this.state.whosWorking, " this is whosWorking in EmployeeContainer");
 		return (
 			<div>
 				<h1> Welcome to the website. </h1>
-				<h2> Here are all the employees: </h2>
-				<EmployeeList employees={this.state.employees}/>
-				<WhosWorkingList whosWorking={this.state.whosWorking} />
+				{ this.state.showingEmployee ?
+					<EmployeeProfile employeeId={this.state.employeeId} employees={this.state.employees}/>
+				:	<div> 
+						<EmployeeList employees={this.state.employees} showEmployee={this.showEmployee} />
+						<WhosWorkingList whosWorking={this.state.whosWorking} />
+					</div>
+				}
+
 			</div>
 		);
 	}
