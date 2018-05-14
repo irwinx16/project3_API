@@ -47,6 +47,21 @@ class EmployeeContainer extends Component {
 	// 		employees: this.state.employees.filter((employee) => employee.id != id)
 	// 	});
 	// }
+
+	  showWaiterOrders = (e) => {
+    const id = e.currentTarget.id
+    console.log(id);
+    // const showedOrder = this.state.waiters.find((waiter) => {
+      // return waiter.id == id
+
+    
+    this.setState({
+      showingOrders: true,
+      waiterId: id
+    })
+  }
+
+  
 	render() {
 		console.log(this.state.whosWorking, " this is whosWorking in EmployeeContainer");
 		return (
