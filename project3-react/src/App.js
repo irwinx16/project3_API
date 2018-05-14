@@ -40,7 +40,9 @@ class App extends Component {
     if (parsedLoginResponse.success) {
       this.getEmployees()
       .then((response) => {
+        console.log(response.employees, " this is the employees as a result of get employees in doLogin");
         this.setState({
+          employees: response.employees,
           loggedIn: true
         })
       })
@@ -70,6 +72,7 @@ class App extends Component {
       this.getEmployees()
       .then((response) => {
         this.setState({
+          employees: response.employees,
           loggedIn: true
         })
       })
@@ -83,11 +86,12 @@ class App extends Component {
     }
   }
   render() {
+    console.log(this.state.employees, " this should be a list of the employees.");
     return (
       <div className="App">
         {this.state.loggedIn ?
           <div> 
-            <EmployeeContainer />
+            <EmployeeContainer employees={this.state.employees} />
             <EmployerContainer />
             <ShiftContainer />
           </div>
