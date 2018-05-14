@@ -19,7 +19,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    
+
   }
 
   getEmployees = async () => {
@@ -190,8 +190,6 @@ class App extends Component {
             <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}/>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployee={this.showEmployee}/>
-              <EmployerContainer employers={this.state.employers}/>
-              <ShiftContainer shifts={this.state.shifts}/>
             </div>
           }
           </div>

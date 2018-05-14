@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EmployeeList from '../EmployeeList';
 import WhosWorkingList from '../WhosWorkingList';
+import HireEmployeeModal from '../HireEmployeeModal';
 import './style.css';
 
 class EmployeeContainer extends Component {
@@ -11,6 +12,7 @@ class EmployeeContainer extends Component {
 			whosWorking: [],
 			showEdit: false,
 			editedEmployee: '',
+			showAllEmployees: false
 		}
 	}
 	componentWillReceiveProps(nextProps){
@@ -25,6 +27,15 @@ class EmployeeContainer extends Component {
 			employees: this.props.employees,
 			whosWorking: this.props.whosWorking
 		})
+	}
+	hireEmployee = async (e) => {
+
+	}
+	showEmployeeList = () => {
+		this.setState({showAllEmployees: true})
+	}
+	showWorkingEmployees = () => {
+		this.setState({showAllEmployees: false})
 	}
 	// showEdit = (e) => {
 	// 	const employeeId = parseInt(e.target.nextSibling.id);
@@ -50,8 +61,11 @@ class EmployeeContainer extends Component {
 		return (
 			<div>
 				<h1> Welcome to the website. </h1>
-				<EmployeeList employees={this.state.employees} showEmployee={this.props.showEmployee} />
-				<WhosWorkingList whosWorking={this.state.whosWorking} />
+				{ this.state.showAllEmployees ?
+					<EmployeeList employees={this.state.employees} showEmployee={this.props.showEmployee} showWorkingEmployees={this.showWorkingEmployees}/>
+				:
+					<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeList ={this.showEmployeeList}/>
+				}
 			</div>
 		);
 	}
