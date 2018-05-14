@@ -13,7 +13,7 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage}) => {
 				<b> Notes: </b> {shownEmployee.notes} <br/>
 				<b> Availability: </b> {shownEmployee.availability}
 			</p>
-			<button onClick={returnToMainPage}>Return to Main Page</button>
+			<button onClick={returnToMainPage}>Return to Present Employees</button>
 		</div>
 	);
 }

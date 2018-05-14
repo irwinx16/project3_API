@@ -14,7 +14,7 @@ const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList}) =
 			<ul>
 				{WhosWorkingList}
 			</ul>
-			<button onClick={showEmployeeList}>Show all Employees</button>
+			<button onClick={showEmployeeList}>Show All Employees</button>
 		</div>
 	);
 }

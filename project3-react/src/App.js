@@ -18,7 +18,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
-
+    
   }
 
   getEmployees = async () => {
@@ -180,6 +180,18 @@ class App extends Component {
       showingEmployee: false
     })
   }
+  hireEmployee = async (employee, e) => {
+      e.preventDefault();
+      const employeesJson = await fetch ('http://localhost:9292/employees', {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(employee)
+      });
+      const employeesParsed = await employeesJson.json();
+      this.setState({
+        employees: [...this.state.employees, employeesParsed.new_employee]
+      })
+  }
   render() {
     return (
       <div className="App">
@@ -188,7 +200,7 @@ class App extends Component {
           {this.state.showingEmployee ?
             <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}/>
           : <div>
-              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile}/>
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees}/>
             </div>
           }
           </div>

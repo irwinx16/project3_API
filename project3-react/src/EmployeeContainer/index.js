@@ -12,7 +12,8 @@ class EmployeeContainer extends Component {
 			whosWorking: [],
 			showEdit: false,
 			editedEmployee: '',
-			showAllEmployees: false
+			showAllEmployees: false,
+			showHireModal: false
 		}
 	}
 	componentWillReceiveProps(nextProps){
@@ -28,43 +29,29 @@ class EmployeeContainer extends Component {
 			whosWorking: this.props.whosWorking
 		})
 	}
-	hireEmployee = async (e) => {
-
+	hideHireEmployeeModal = () => {
+		this.setState({showHireModal: false});
+	}
+	showHireEmployeeModal = () => {
+		this.setState({showHireModal: true});
 	}
 	showEmployeeList = () => {
-		this.setState({showAllEmployees: true})
+		this.setState({showAllEmployees: true});
 	}
 	showWorkingEmployees = () => {
-		this.setState({showAllEmployees: false})
+		this.setState({showAllEmployees: false});
 	}
-	// showEdit = (e) => {
-	// 	const employeeId = parseInt(e.target.nextSibling.id);
-	// 	const editedEmployee = this.state.employees.find((employee) => {
-	// 		return employee.id === employeeId;
-	// 	})
-	// 	this.setState({
-	// 		showEdit: true,
-	// 		editedEmployee: editedEmployee
-	// 	})
-	// }
-	// deleteEmployee = async (e) => {
-	// 	const id = e.currentTarget.id;
-	// 	const employees = await fetch ('http://localhost:9292/employees/' + id, {
-	// 		method: 'DELETE'
-	// 	});
-
-	// 	this.setState({
-	// 		employees: this.state.employees.filter((employee) => employee.id != id)
-	// 	});
-	// }
 	render() {
 		return (
 			<div>
 				<h1> Welcome to the website. </h1>
 				{ this.state.showAllEmployees ?
-					<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees}/>
-				:
-					<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile}showEmployeeList={this.showEmployeeList}/>
+					<div>
+						<HireEmployeeModal hireEmployee={this.props.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal}/>
+						<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees} showHireEmployeeModal={this.showHireEmployeeModal}/>
+					</div>
+
+				:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile}showEmployeeList={this.showEmployeeList}/>
 				}
 			</div>
 		);
