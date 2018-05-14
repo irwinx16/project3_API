@@ -1,7 +1,6 @@
 import React from 'react';
 
 const WhosWorkingList = ({whosWorking}) => {
-	console.log(whosWorking, " this is whosworking prop in WhosWorkingList");
 	const WhosWorkingList = whosWorking.map((employee, i) => {
 		return (
 			<li key={i}>
