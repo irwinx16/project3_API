@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import EmployeeContainer from './EmployeeContainer';
-import EmployerContainer from './EmployerContainer';
 import ShiftContainer from './ShiftContainer';
 import LoginRegister from './LoginRegister';
 import EmployeeProfile from './EmployeeProfile';
@@ -169,7 +168,7 @@ class App extends Component {
       });
     }
   }
-  showEmployee = (e) => {
+  showEmployeeProfile = (e) => {
     const id = e.currentTarget.id;
     this.setState({
       showingEmployee: true,
@@ -189,7 +188,7 @@ class App extends Component {
           {this.state.showingEmployee ?
             <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}/>
           : <div>
-              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployee={this.showEmployee}/>
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile}/>
             </div>
           }
           </div>
