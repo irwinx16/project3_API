@@ -6,14 +6,17 @@ class EmployeeContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
-			employees: ['fart'],
+			employees: [],
 			showEdit: false,
 			editedEmployee: ''
 		}
 	}
-	componentWillReceiveProps(nextProps){
-		console.log(nextProps, " this is nextProps from employee container");
-		this.setState({employees: nextProps.employees});
+	// componentWillReceiveProps(nextProps){
+	// 	console.log(nextProps, " this is nextProps from employee container");
+	// 	this.setState({employees: nextProps.employees});
+	// }
+	componentDidMount() {
+		this.setState({employees: this.props.employees})
 	}
 	// showEdit = (e) => {
 	// 	const employeeId = parseInt(e.target.nextSibling.id);
@@ -36,7 +39,6 @@ class EmployeeContainer extends Component {
 	// 	});
 	// }
 	render() {
-		console.log(this.state.employees, " this is all the employees inside the employee container.");
 		return (
 			<div>
 				<h1> Welcome to the website. </h1>

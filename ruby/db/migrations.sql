@@ -5,8 +5,6 @@ CREATE DATABASE employer;
 \c employer
 
 CREATE TYPE role AS ENUM ('server', 'bartender', 'chef', 'manager');
--- TIME format is (hours:minutes in a 24 hour scale)
--- DATE format is YYYY:MM:DD (year:month:day)
 
 CREATE TABLE employees(
 	id SERIAL PRIMARY KEY,
@@ -14,7 +12,6 @@ CREATE TABLE employees(
 	position role,
 	notes VARCHAR(256),
 	availability VARCHAR(256)
-	-- shift_id INT REFERENCES shifts(id) ON DELETE SET NULL
 );
 
 CREATE TABLE shifts(
