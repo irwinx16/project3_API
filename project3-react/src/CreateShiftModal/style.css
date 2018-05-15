@@ -8,4 +8,8 @@
   left: 50%;
   background-color: pink;
   transform: translate(-58%, -50%);
+  color: black;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
 }
