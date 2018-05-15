@@ -1,6 +1,9 @@
+body {
+  background-color: #eee;
+}
 .current {
-	background-color: black;
-	color: white;
+	background-color: none;
+	color: black;
 }
 span {
 	cursor: pointer;
@@ -14,4 +17,13 @@ span:hover {
 	border: 1px solid red;
 	padding: 20px;
 	background-color: pink;
+}
+
+.form-horizontal .control-label {
+  text-align: center;
+}
+.form-control {
+  width: auto;
+  margin: 0 auto;
+
 }

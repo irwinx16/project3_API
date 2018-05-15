@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import './style.css';
 
 const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, showHireEmployeeModal, deleteEmployee, doLogout}) => {
@@ -15,8 +16,8 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
 		<div>
 			<button onClick={doLogout}>Log Out</button>
 			<h1> Here are all the employees: </h1>
-			<button onClick={showHireEmployeeModal}> Hire New Employee </button> <br/>
-			<button onClick={showWorkingEmployees}> Show Present Employees</button>
+			<Button bsStyle="danger" onClick={showHireEmployeeModal}> Hire New Employee </Button> <br/>
+			<button bsstyle="danger" onClick={showWorkingEmployees}> Show Present Employees</button>
 			<ul>
 				{employeeList}
 			</ul>

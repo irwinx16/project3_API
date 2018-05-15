@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { Jumbotron } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { FormGroup } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import { ControlLabel } from 'react-bootstrap';
 import './style.css';
 
 class LoginRegister extends Component {
@@ -26,18 +33,44 @@ class LoginRegister extends Component {
 	loggingIn = (e) => {
 		this.setState({registering: false});
 	}
+
+
 	render() {
 		return (
 			<div>
-				<h1> {this.props.message} </h1>
-				{this.props.loginError.toString() !== '' ? <p className="login-error">{this.props.loginError}</p> : null}
+				<Jumbotron>
+  				<h1>Welcome to EMS!</h1>
+  				<h3>Employment Management Software</h3>
+					<h4> {this.props.message} </h4>
+					{this.props.loginError.toString() !== '' ? <p className="login-error">{this.props.loginError}</p> : null}
 
-				<p><span className={this.state.registering ? "current" : null}onClick={this.registration}>Register</span> • <span className={!this.state.registering ? "current" : null} onClick={this.loggingIn}>Log In</span></p>
-				<form onSubmit={this.handleSubmit}>
-					<input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleInput}/> <br/>
-					<input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleInput}/> <br/>
-					<button > {this.state.registering ? "Register" : "Log In"}</button>
-				</form>		
+					<p><span className={this.state.registering ? "current" : null}onClick={this.registration}>Register</span> • <span className={!this.state.registering ? "current" : null} onClick={this.loggingIn}>Log In</span></p>
+					<Form horizontal onSubmit={this.handleSubmit}>
+						<FormGroup controlId="formHorizontal">
+							<Col componentClass={ControlLabel} sm={12}>
+      					Username
+   						</Col>
+   						<Col sm={12}>
+      					<FormControl type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleInput} />
+    					</Col>
+						</FormGroup>
+
+						<FormGroup controlId="formHorizontalPassword">
+							<Col componentClass={ControlLabel} sm={12}>
+								Password
+							</Col>
+							<Col sm={12}>
+								<FormControl type="password" placeholder="Password" value={this.state.password} onChange={this.handleInput} />
+							</Col>
+						</FormGroup>
+
+						 <FormGroup>
+    					<Col smOffset={0} sm={12}>
+      				<Button bsStyle="primary" type="submit"> {this.state.registering ? "Register" : "Log In"}</Button>
+    					</Col>
+  					</FormGroup>
+					</Form>
+				</Jumbotron>;
 			</div>
 		)
 	}

@@ -119,8 +119,7 @@ class App extends Component {
 
     } else {
       this.setState({
-        loginError: loggedIn.message,
-        message: "We're sorry, there was an error. Please try again."
+        loginError: loggedIn.message
       });
     }
   }
