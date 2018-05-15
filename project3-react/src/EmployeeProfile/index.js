@@ -2,7 +2,7 @@ import React from 'react';
 import EditModal from '../EditModal';
 import './style.css';
 
-const EmployeeProfile = ({employees, employeeId, returnToMainPage, value}) => {
+const EmployeeProfile = ({employees, employeeId, returnToMainPage, modalOpen}) => {
 	const returnEmployee = employees.filter(employee => employee.id == employeeId);
 	const shownEmployee = returnEmployee[0];
 
@@ -16,7 +16,7 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, value}) => {
 				<b> Availability: </b> {shownEmployee.availability}
 			</p>
 			<button onClick={returnToMainPage}>Return to Main Page</button>
-			<button onClick={value}>Button</button>
+			<button onClick={modalOpen}>Edit Employee</button>
 		</div>
 	);
 }
