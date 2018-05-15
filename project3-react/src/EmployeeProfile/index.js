@@ -2,7 +2,7 @@ import React from 'react';
 import EditModal from '../EditModal';
 import './style.css';
 
-const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout, modalOpen}) => {
+const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout, openEditModal, editedEmployee}) => {
 	const returnEmployee = employees.filter(employee => employee.id == employeeId);
 	const shownEmployee = returnEmployee[0];
 
@@ -32,7 +32,7 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
 			<ul>
 				{shiftList}
 			</ul>
-      <button onClick={modalOpen}>Edit Employee</button>
+      <button onClick={openEditModal}>Edit Employee</button>
 			<button onClick={returnToMainPage}>Return to Main Page</button>
 		</div>
 	);

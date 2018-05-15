@@ -54,16 +54,17 @@ class EditModal extends Component {
     })
   }
   render(){
-    const showModal = this.props.modalState ? 'show' : 'hide';
+    const showModal = this.props.showEditModal ? 'show' : 'hide';
     return (
       <div className={showModal}>
+        <button onClick={this.props.closeEditModal}>Exit</button>
         <form onSubmit={this.handleSubmit}>
             Edit Employee: <br/>
           <input type="text" name="name" value={this.state.name} placeholder="Employee Name" onChange={this.updateName}/> <br/>
           <input type="text" name="position" value={this.state.position} placeholder="Employee Position" onChange={this.updatePosition}/> <br/>
           <input type="text" name="notes" value={this.state.notes} placeholder="Employee Notes" onChange={this.updateNotes} /> <br/>
           <input type="text" name="availability" value={this.state.availability} placeholder="Employee Availability" onChange={this.updateAvailability} /> <br/>
-          <button onClick={this.props.modalClose}>Submit</button>
+          <button onClick={this.props.closeEditModal}>Submit</button>
         </form>
       </div>
 

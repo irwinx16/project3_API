@@ -18,8 +18,11 @@ class App extends Component {
       employeeId: '',
       message: '',
       editedEmployee: '',
-      modalOpen: false
+      showEditModal: false
     }
+  }
+  componentDidMount() {
+    this.setState(this.state);
   }
   getEmployees = async () => {
     const employeesJson = await fetch('http://localhost:9292/employees', {
@@ -222,19 +225,19 @@ class App extends Component {
       employees: this.state.employees.filter((employee) => employee.id != id)
     });
   }
-  modalOpen = (e) => {
+  openEditModal = (e) => {
     const employeeID = parseInt(e.target.previousSibling.id)
     const editedEmployee = this.state.employees.find((employee) => {
       return employee.id === employeeID
     })
     this.setState({
-      modalOpen: true,
+      showEditModal: true,
       editedEmployee: editedEmployee
     });
   }
-  modalClose = () => {
+  closeEditModal = () => {
     this.setState({
-      modalOpen: false
+      showEditModal: false
     })
   }
   editEmployee = async (editedEmployee) => {
@@ -248,14 +251,11 @@ class App extends Component {
     const editedEmployeeIndex = this.state.employees.findIndex((employee) => {
       return employee.id == response.updated_employee.id;
     });
-    const state = this.state;
-    state.employees[editedEmployeeIndex] = response.updated_employee;
+    this.state.employees[editedEmployeeIndex] = response.updated_employee;
     this.setState({
-      showingEmployee: false
+      editedEmployee: `${response.updated_employee}`
     })
-
   }
-
 
   render() {
     return (
@@ -264,8 +264,8 @@ class App extends Component {
           <div>
           {this.state.showingEmployee ?
             <div>
-              <EditModal modalState={this.state.modalOpen} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} modalClose={this.modalClose} employees={this.state.employees} employeeId={this.state.employeeId}/>
-              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} modalOpen={this.modalOpen}/>
+              <EditModal showEditModal={this.state.showEditModal} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} closeEditModal={this.closeEditModal} employees={this.state.employees} employeeId={this.state.employeeId}/>
+              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} editedEmployee={this.state.editedEmployee}/>
             </div>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message}/>
