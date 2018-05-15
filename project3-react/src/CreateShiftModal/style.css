@@ -1,0 +1,11 @@
+.hide {
+	display: none;
+}
+.show {
+  position: fixed;
+  display: block;
+  top: 50%;
+  left: 50%;
+  background-color: pink;
+  transform: translate(-58%, -50%);
+}

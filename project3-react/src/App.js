@@ -4,7 +4,7 @@ import EmployeeContainer from './EmployeeContainer';
 import LoginRegister from './LoginRegister';
 import EmployeeProfile from './EmployeeProfile';
 import EditModal from './EditModal';
-
+import CreateShiftModal from './CreateShiftModal';
 class App extends Component {
   constructor() {
     super();
@@ -18,7 +18,8 @@ class App extends Component {
       employeeId: '',
       message: '',
       editedEmployee: '',
-      showEditModal: false
+      showEditModal: false,
+      showCreateShiftModal: false
     }
   }
   componentDidMount() {
@@ -122,8 +123,7 @@ class App extends Component {
 
     } else {
       this.setState({
-        loginError: loggedIn.message,
-        message: "We're sorry, there was an error. Please try again."
+        loginError: loggedIn.message      
       });
     }
   }
@@ -189,6 +189,28 @@ class App extends Component {
         loginError: parsedRegisterResponse.message
       });
     }
+  }
+  addShift = async (shift, e) => {
+    e.preventDefault();
+    const shiftsJson = await fetch ('http://localhost:9292/shifts', {
+      credentials: 'include',
+      method: 'POST',
+      body: JSON.stringify(shift)
+    })
+    const shiftsParsed = await shiftsJson.json();
+    this.setState({
+      shifts: [...this.state.shifts, shiftsParsed.new_shift]
+    })
+  }
+  openCreateShiftModal = () => {
+    this.setState({
+      showCreateShiftModal: true
+    })
+  }
+  closeCreateShiftModal = () => {
+    this.setState({
+      showCreateShiftModal: false
+    })
   }
   showEmployeeProfile = (e) => {
     const id = e.currentTarget.parentNode.id;
@@ -264,8 +286,9 @@ class App extends Component {
           <div>
           {this.state.showingEmployee ?
             <div>
+              <CreateShiftModal showCreateShiftModal={this.state.showCreateShiftModal} openCreateShiftModal={this.openCreateShiftModal} closeCreateShiftModal={this.closeCreateShiftModal} addShift={this.addShift} employeeId={this.state.employeeId}/>
               <EditModal showEditModal={this.state.showEditModal} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} closeEditModal={this.closeEditModal} employees={this.state.employees} employeeId={this.state.employeeId}/>
-              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} editedEmployee={this.state.editedEmployee}/>
+              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} editedEmployee={this.state.editedEmployee} openCreateShiftModal={this.openCreateShiftModal}/>
             </div>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message}/>

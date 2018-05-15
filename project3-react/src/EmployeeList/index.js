@@ -15,8 +15,8 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
 		<div>
 			<button onClick={doLogout}>Log Out</button>
 			<h1> Here are all the employees: </h1>
-			<button onClick={showHireEmployeeModal}> Hire New Employee </button> <br/>
-			<button onClick={showWorkingEmployees}> Show Present Employees</button>
+			<button onClick={showWorkingEmployees}> Show Present Employees</button> <br/>
+			<button onClick={showHireEmployeeModal}> Hire New Employee </button> 
 			<ul>
 				{employeeList}
 			</ul>
