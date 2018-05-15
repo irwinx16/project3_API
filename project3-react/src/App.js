@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       employees: [],
       whosWorking: [],
+      shifts: [],
       loggedIn: false,
       loginError: '',
       showingEmployee: false,
@@ -205,7 +206,7 @@ class App extends Component {
         {this.state.loggedIn ?
           <div> 
           {this.state.showingEmployee ?
-            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}/>
+            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage} shifts={this.state.shifts}/>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee}/>
             </div>
