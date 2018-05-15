@@ -4,3 +4,11 @@ ul span:hover {
 ul button:hover {
 	cursor: pointer;
 }
+
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}

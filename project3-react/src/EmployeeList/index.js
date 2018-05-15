@@ -1,8 +1,12 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
+import { NavItem } from 'react-bootstrap';
+import {Table } from 'react-bootstrap'
 import './style.css';
 
-const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, showHireEmployeeModal, deleteEmployee, doLogout}) => {
+const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, showHireEmployeeModal, deleteEmployee, doLogout, message}) => {
 	const employeeList = employees.map((employee, i) => {
 		return (
             <li key={employee.id} id={employee.id}>
@@ -13,11 +17,33 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
 	})
 
 	return (
-		<div>
-			<button onClick={doLogout}>Log Out</button>
-			<h1> Here are all the employees: </h1>
-			<Button bsStyle="danger" onClick={showHireEmployeeModal}> Hire New Employee </Button> <br/>
-			<button bsstyle="danger" onClick={showWorkingEmployees}> Show Present Employees</button>
+    <div>
+    <Navbar inverse collapseOnSelect>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <a href="#brand">EMS</a>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        <Nav>
+          <NavItem onClick={showHireEmployeeModal}>
+            New Employee
+          </NavItem>
+          <NavItem onClick={showWorkingEmployees}>
+            Show Present Employees
+          </NavItem>
+        </Nav>
+        <Nav pullRight>
+          <NavItem onClick={doLogout}>
+            Log Out
+          </NavItem>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+
+      <h3> {message} </h3>
+			<h4> Here are all the employees: </h4>
 			<ul>
 				{employeeList}
 			</ul>

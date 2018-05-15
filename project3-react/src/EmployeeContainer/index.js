@@ -44,12 +44,12 @@ class EmployeeContainer extends Component {
 	render() {
 		return (
 			<div>
-				<h1> {this.props.message} </h1>
+
 				{ this.state.showAllEmployees ?
 					<div>
 						<HireEmployeeModal hireEmployee={this.props.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal}/>
 						<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees} showHireEmployeeModal={this.showHireEmployeeModal}
-							deleteEmployee={this.props.deleteEmployee} doLogout={this.props.doLogout}/>
+							deleteEmployee={this.props.deleteEmployee} doLogout={this.props.doLogout} message={this.props.message}/>
 					</div>
 
 				:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile}showEmployeeList={this.showEmployeeList} doLogout={this.props.doLogout}/>
