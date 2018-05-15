@@ -3,6 +3,7 @@ import './App.css';
 import EmployeeContainer from './EmployeeContainer';
 import LoginRegister from './LoginRegister';
 import EmployeeProfile from './EmployeeProfile';
+import EditModal from './EditModal';
 
 class App extends Component {
   constructor() {
@@ -15,7 +16,9 @@ class App extends Component {
       loginError: '',
       showingEmployee: false,
       employeeId: '',
-      message: ''
+      message: '',
+      editedEmployee: '',
+      modalOpen: false
     }
   }
   getEmployees = async () => {
@@ -56,7 +59,7 @@ class App extends Component {
         loggedIn: false,
         message: loggedOut.message
       })
-    }     
+    }
     return loggedOut;
   }
   doLogin = async (username, password) => {
@@ -66,7 +69,7 @@ class App extends Component {
       body: JSON.stringify({
         username: username,
         password: password
-      }) 
+      })
     })
     const loggedIn = await loginJson.json();
     if (loggedIn.success) {
@@ -128,7 +131,7 @@ class App extends Component {
       body: JSON.stringify({
         username: username,
         password: password
-      }) 
+      })
     })
     const parsedRegisterResponse = await registerJson.json();
     if (parsedRegisterResponse.success) {
@@ -219,13 +222,51 @@ class App extends Component {
       employees: this.state.employees.filter((employee) => employee.id != id)
     });
   }
+  modalOpen = (e) => {
+    const employeeID = parseInt(e.target.previousSibling.id)
+    const editedEmployee = this.state.employees.find((employee) => {
+      return employee.id === employeeID
+    })
+    this.setState({
+      modalOpen: true,
+      editedEmployee: editedEmployee
+    });
+  }
+  modalClose = () => {
+    this.setState({
+      modalOpen: false
+    })
+  }
+  editEmployee = async (editedEmployee) => {
+    const id = this.state.employeeId;
+    const employee = await fetch("http://localhost:9292/employees/" + id, {
+      method: 'PUT',
+      body: JSON.stringify(editedEmployee)
+    })
+    const response = await employee.json()
+
+    const editedEmployeeIndex = this.state.employees.findIndex((employee) => {
+      return employee.id == response.updated_employee.id;
+    });
+    const state = this.state;
+    state.employees[editedEmployeeIndex] = response.updated_employee;
+    this.setState({
+      showingEmployee: false
+    })
+
+  }
+
+
   render() {
     return (
       <div className="App">
         {this.state.loggedIn ?
-          <div> 
+          <div>
           {this.state.showingEmployee ?
-            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage} shifts={this.state.shifts} doLogout={this.doLogout}/>
+            <div>
+              <EditModal modalState={this.state.modalOpen} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} modalClose={this.modalClose} employees={this.state.employees} employeeId={this.state.employeeId}/>
+              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} modalOpen={this.modalOpen}/>
+            </div>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message}/>
             </div>
