@@ -11,6 +11,9 @@ class EditModal extends Component {
       availability: ''
     }
   }
+  componentDidMount() {
+    this.findCurrentEmployee()
+  }
   updateName = (e) => {
     const name = e.currentTarget.value;
     this.setState({
@@ -40,17 +43,26 @@ class EditModal extends Component {
     e.preventDefault();
     this.props.editEmployee(this.state)
   }
-
+  findCurrentEmployee = () => {
+    const currentEmployee = this.props.employees.filter(employee => employee.id == this.props.employeeId);
+    const employeeToEdit = currentEmployee[0];
+    this.setState({
+      name: `${employeeToEdit.name}`,
+      position: `${employeeToEdit.position}`,
+      notes: `${employeeToEdit.notes}`,
+      availability: `${employeeToEdit.availability}`
+    })
+  }
   render(){
-    const showModal = this.props.modalState ? 'show' : 'hide'
+    const showModal = this.props.modalState ? 'show' : 'hide';
     return (
       <div className={showModal}>
         <form onSubmit={this.handleSubmit}>
             Edit Employee: <br/>
-          <input type="text" name="name" placeholder="Employee Name" onChange={this.updateName}/> <br/>
-          <input type="text" name="position" placeholder="Employee Position" onChange={this.updatePosition}/> <br/>
-          <input type="text" name="notes" placeholder="Employee Notes" onChange={this.updateNotes} /> <br/>
-          <input type="text" name="availability" placeholder="Employee Availability" onChange={this.updateAvailability} /> <br/>
+          <input type="text" name="name" value={this.state.name} placeholder="Employee Name" onChange={this.updateName}/> <br/>
+          <input type="text" name="position" value={this.state.position} placeholder="Employee Position" onChange={this.updatePosition}/> <br/>
+          <input type="text" name="notes" value={this.state.notes} placeholder="Employee Notes" onChange={this.updateNotes} /> <br/>
+          <input type="text" name="availability" value={this.state.availability} placeholder="Employee Availability" onChange={this.updateAvailability} /> <br/>
           <button onClick={this.props.modalClose}>Submit</button>
         </form>
       </div>

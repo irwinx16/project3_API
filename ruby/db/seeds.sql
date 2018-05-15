@@ -1,10 +1,10 @@
 -- employees data
 
-INSERT INTO employees (name, position, notes, availability) VALUES ('Samat', 'server', 'hard worker, meh', 'Monday thru Wednesday');
-INSERT INTO employees (name, position, notes, availability) VALUES ('Irwin', 'chef', 'good at cooking, great with people', 'Weekends preferred');
-INSERT INTO employees (name, position, notes, availability) VALUES ('Marie', 'bartender', 'makes a mean cocktail', 'Evenings');
-INSERT INTO employees (name, position, notes, availability) VALUES ('Alyssa', 'server', 'customers love her attitude', 'Evenings and weekends');
-INSERT INTO employees (name, position, notes, availability) VALUES ('Mark', 'manager', 'whips the workers into shape', 'Monday thru Friday');
+INSERT INTO employees (name, position, notes, availability) VALUES ('Samat', 'Server', 'hard worker, meh', 'Monday thru Wednesday');
+INSERT INTO employees (name, position, notes, availability) VALUES ('Irwin', 'Chef', 'good at cooking, great with people', 'Weekends preferred');
+INSERT INTO employees (name, position, notes, availability) VALUES ('Marie', 'Bartender', 'makes a mean cocktail', 'Evenings');
+INSERT INTO employees (name, position, notes, availability) VALUES ('Alyssa', 'Server', 'customers love her attitude', 'Evenings and weekends');
+INSERT INTO employees (name, position, notes, availability) VALUES ('Mark', 'Employer', 'whips the workers into shape', 'Monday thru Friday');
 
 -- shifts data
 
