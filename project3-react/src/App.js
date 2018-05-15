@@ -225,7 +225,7 @@ class App extends Component {
         {this.state.loggedIn ?
           <div> 
           {this.state.showingEmployee ?
-            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage} shifts={this.state.shifts}/>
+            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage} shifts={this.state.shifts} doLogout={this.doLogout}/>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message}/>
             </div>

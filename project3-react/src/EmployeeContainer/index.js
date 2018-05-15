@@ -52,7 +52,7 @@ class EmployeeContainer extends Component {
 							deleteEmployee={this.props.deleteEmployee} doLogout={this.props.doLogout}/>
 					</div>
 
-				:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile}showEmployeeList={this.showEmployeeList}/>
+				:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile}showEmployeeList={this.showEmployeeList} doLogout={this.props.doLogout}/>
 				}
 			</div>
 		);

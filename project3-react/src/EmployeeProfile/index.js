@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts}) => {
+const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout}) => {
 	const returnEmployee = employees.filter(employee => employee.id == employeeId);
 	const shownEmployee = returnEmployee[0];
 
@@ -18,6 +18,7 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts}) => {
 	})
 	return (
 		<div>
+			<button onClick={doLogout}>Log Out</button>
 			<h1> {shownEmployee.name}'s Profile: </h1>
 			<p>
 				<b> Name: </b> {shownEmployee.name} <br/>
