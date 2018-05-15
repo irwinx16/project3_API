@@ -38,8 +38,11 @@ class EmployeeContainer extends Component {
 	showWorkingEmployees = () => {
 		this.setState({showAllEmployees: false});
 	}
-
+	setMessageTimeout = () => {
+		setTimeout(this.props.makeBlankMessage, 1000);
+	}
 	render() {
+		{this.setMessageTimeout()}
 		return (
 			<div>
 				<h1> {this.props.message} </h1>

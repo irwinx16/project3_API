@@ -16,14 +16,25 @@ class App extends Component {
       loginError: '',
       showingEmployee: false,
       employeeId: '',
+      logoutMessage: '',
       message: '',
       editedEmployee: '',
       showEditModal: false,
       showCreateShiftModal: false
     }
   }
-  componentDidMount() {
-    this.setState(this.state);
+  // componentDidMount() {
+  //   this.setState({this.state})
+  // }
+  makeBlankMessage = () => {
+    this.setState({
+      message: ''
+    });
+  }
+  makeBlankLogOutMessage = () => {
+    this.setState({
+      logoutMessage: ''
+    });
   }
   getEmployees = async () => {
     const employeesJson = await fetch('http://localhost:9292/employees', {
@@ -61,7 +72,7 @@ class App extends Component {
     if (loggedOut.success) {
       this.setState({
         loggedIn: false,
-        message: loggedOut.message
+        logoutMessage: loggedOut.message
       })
     }
     return loggedOut;
@@ -291,6 +302,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.message, " this is the message we're displaying from the App.js");
     return (
       <div className="App">
         {this.state.loggedIn ?
@@ -302,11 +314,11 @@ class App extends Component {
               <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} openCreateShiftModal={this.openCreateShiftModal} deleteShift={this.deleteShift}/>
             </div>
           : <div>
-              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message}/>
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message} makeBlankMessage={this.makeBlankMessage}/>
             </div>
           }
           </div>
-        : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} message={this.state.message} />
+        : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} logoutMessage={this.state.logoutMessage} makeBlankLogOutMessage={this.makeBlankLogOutMessage} />
         }
       </div>
     );

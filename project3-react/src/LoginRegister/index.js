@@ -26,10 +26,14 @@ class LoginRegister extends Component {
 	loggingIn = (e) => {
 		this.setState({registering: false});
 	}
+	setMessageTimeout = () => {
+		setTimeout(this.props.makeBlankLogOutMessage, 1000);
+	}
 	render() {
+		{this.setMessageTimeout()}
 		return (
 			<div>
-				<h1> {this.props.message} </h1>
+				<h1> {this.props.logoutMessage} </h1>
 				{this.props.loginError.toString() !== '' ? <p className="login-error">{this.props.loginError}</p> : null}
 
 				<p><span className={this.state.registering ? "current" : null}onClick={this.registration}>Register</span> • <span className={!this.state.registering ? "current" : null} onClick={this.loggingIn}>Log In</span></p>
