@@ -33,15 +33,17 @@ class LoginRegister extends Component {
 	loggingIn = (e) => {
 		this.setState({registering: false});
 	}
-
-
+	setMessageTimeout = () => {
+		setTimeout(this.props.makeBlankLogOutMessage, 1000);
+	}
 	render() {
+		{this.setMessageTimeout()}
 		return (
 			<div>
 				<Jumbotron>
   				<h1>Welcome to EMS!</h1>
   				<h3>Employment Management Software</h3>
-					<h4> {this.props.message} </h4>
+					<h4> {this.props.logoutMessage} </h4>
 					{this.props.loginError.toString() !== '' ? <p className="login-error">{this.props.loginError}</p> : null}
 
 					<p><span className={this.state.registering ? "current" : null}onClick={this.registration}>Register</span> • <span className={!this.state.registering ? "current" : null} onClick={this.loggingIn}>Log In</span></p>
@@ -63,7 +65,6 @@ class LoginRegister extends Component {
 								<FormControl type="password" placeholder="Password" value={this.state.password} onChange={this.handleInput} />
 							</Col>
 						</FormGroup>
-
 						 <FormGroup>
     					<Col smOffset={0} sm={12}>
       				<Button bsStyle="primary" type="submit"> {this.state.registering ? "Register" : "Log In"}</Button>

@@ -10,8 +10,6 @@ class EmployeeContainer extends Component {
 		this.state = {
 			employees: [],
 			whosWorking: [],
-			showEdit: false,
-			editedEmployee: '',
 			showAllEmployees: true,
 			showHireModal: false
 		}
@@ -40,14 +38,17 @@ class EmployeeContainer extends Component {
 	showWorkingEmployees = () => {
 		this.setState({showAllEmployees: false});
 	}
-
+	setMessageTimeout = () => {
+		setTimeout(this.props.makeBlankMessage, 1000);
+	}
 	render() {
+		{this.setMessageTimeout()}
 		return (
 			<div>
 
 				{ this.state.showAllEmployees ?
 					<div>
-						<HireEmployeeModal hireEmployee={this.props.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal}/>
+						<HireEmployeeModal hireEmployee={this.props.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal} />
 						<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees} showHireEmployeeModal={this.showHireEmployeeModal}
 							deleteEmployee={this.props.deleteEmployee} doLogout={this.props.doLogout} message={this.props.message}/>
 					</div>

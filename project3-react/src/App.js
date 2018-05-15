@@ -4,7 +4,7 @@ import EmployeeContainer from './EmployeeContainer';
 import LoginRegister from './LoginRegister';
 import EmployeeProfile from './EmployeeProfile';
 import EditModal from './EditModal';
-
+import CreateShiftModal from './CreateShiftModal';
 class App extends Component {
   constructor() {
     super();
@@ -16,10 +16,25 @@ class App extends Component {
       loginError: '',
       showingEmployee: false,
       employeeId: '',
+      logoutMessage: '',
       message: '',
       editedEmployee: '',
-      modalOpen: false
+      showEditModal: false,
+      showCreateShiftModal: false
     }
+  }
+  // componentDidMount() {
+  //   this.setState({this.state})
+  // }
+  makeBlankMessage = () => {
+    this.setState({
+      message: ''
+    });
+  }
+  makeBlankLogOutMessage = () => {
+    this.setState({
+      logoutMessage: ''
+    });
   }
   getEmployees = async () => {
     const employeesJson = await fetch('http://localhost:9292/employees', {
@@ -57,7 +72,7 @@ class App extends Component {
     if (loggedOut.success) {
       this.setState({
         loggedIn: false,
-        message: loggedOut.message
+        logoutMessage: loggedOut.message
       })
     }
     return loggedOut;
@@ -186,6 +201,39 @@ class App extends Component {
       });
     }
   }
+  addShift = async (shift, e) => {
+    e.preventDefault();
+    const shiftsJson = await fetch ('http://localhost:9292/shifts', {
+      credentials: 'include',
+      method: 'POST',
+      body: JSON.stringify(shift)
+    })
+    const shiftsParsed = await shiftsJson.json();
+    this.setState({
+      shifts: [...this.state.shifts, shiftsParsed.new_shift]
+    })
+  }
+  deleteShift = async (e) => {
+    const id = e.currentTarget.parentNode.id;
+    const shifts = await fetch (`http://localhost:9292/shifts/${id}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    });
+
+    this.setState({
+      shifts: this.state.shifts.filter((shift) => shift.id != id)
+    });
+  }
+  openCreateShiftModal = () => {
+    this.setState({
+      showCreateShiftModal: true
+    })
+  }
+  closeCreateShiftModal = () => {
+    this.setState({
+      showCreateShiftModal: false
+    })
+  }
   showEmployeeProfile = (e) => {
     const id = e.currentTarget.parentNode.id;
     this.setState({
@@ -221,19 +269,19 @@ class App extends Component {
       employees: this.state.employees.filter((employee) => employee.id != id)
     });
   }
-  modalOpen = (e) => {
+  openEditModal = (e) => {
     const employeeID = parseInt(e.target.previousSibling.id)
     const editedEmployee = this.state.employees.find((employee) => {
       return employee.id === employeeID
     })
     this.setState({
-      modalOpen: true,
+      showEditModal: true,
       editedEmployee: editedEmployee
     });
   }
-  modalClose = () => {
+  closeEditModal = () => {
     this.setState({
-      modalOpen: false
+      showEditModal: false
     })
   }
   editEmployee = async (editedEmployee) => {
@@ -247,31 +295,30 @@ class App extends Component {
     const editedEmployeeIndex = this.state.employees.findIndex((employee) => {
       return employee.id == response.updated_employee.id;
     });
-    const state = this.state;
-    state.employees[editedEmployeeIndex] = response.updated_employee;
+    this.state.employees[editedEmployeeIndex] = response.updated_employee;
     this.setState({
-      showingEmployee: false
+      editedEmployee: `${response.updated_employee}`
     })
-
   }
 
-
   render() {
+    console.log(this.state.message, " this is the message we're displaying from the App.js");
     return (
       <div className="App">
         {this.state.loggedIn ?
           <div>
           {this.state.showingEmployee ?
             <div>
-              <EditModal modalState={this.state.modalOpen} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} modalClose={this.modalClose} employees={this.state.employees} employeeId={this.state.employeeId}/>
-              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} modalOpen={this.modalOpen}/>
+              <CreateShiftModal showCreateShiftModal={this.state.showCreateShiftModal} openCreateShiftModal={this.openCreateShiftModal} closeCreateShiftModal={this.closeCreateShiftModal} addShift={this.addShift} employeeId={this.state.employeeId}/>
+              <EditModal showEditModal={this.state.showEditModal} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} closeEditModal={this.closeEditModal} employees={this.state.employees} employeeId={this.state.employeeId}/>
+              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} openCreateShiftModal={this.openCreateShiftModal} deleteShift={this.deleteShift}/>
             </div>
           : <div>
-              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message}/>
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message} makeBlankMessage={this.makeBlankMessage}/>
             </div>
           }
           </div>
-        : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} message={this.state.message} />
+        : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} logoutMessage={this.state.logoutMessage} makeBlankLogOutMessage={this.makeBlankLogOutMessage} />
         }
       </div>
     );

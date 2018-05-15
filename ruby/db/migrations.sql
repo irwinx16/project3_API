@@ -4,7 +4,7 @@ CREATE DATABASE employer;
 
 \c employer
 
-CREATE TYPE role AS ENUM ('server', 'bartender', 'chef', 'manager');
+CREATE TYPE role AS ENUM ('Server', 'Bartender', 'Chef', 'Employer');
 
 CREATE TABLE employees(
 	id SERIAL PRIMARY KEY,
@@ -22,7 +22,6 @@ CREATE TABLE shifts(
 	end_shift TIMESTAMP,
 	notes VARCHAR(256)
 );
-
 
 CREATE TABLE employers(
 	id SERIAL PRIMARY KEY,

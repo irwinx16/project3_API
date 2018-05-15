@@ -39,6 +39,7 @@ class HireEmployeeModal extends Component {
 		const showModal = this.props.showHireModal ? 'show' : 'hide';
 		return (
 			<div className={showModal}>
+				<button onClick={this.props.hideHireEmployeeModal}>Exit</button>
 				<form onSubmit={this.props.hireEmployee.bind(null, this.state)}>
 						New Employee: <br/>
 					<input type="text" name="name" placeholder="Employee Name" onChange={this.updateName}/> <br/>
