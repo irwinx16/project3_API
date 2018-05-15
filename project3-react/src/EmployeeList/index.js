@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, showHireEmployeeModal, deleteEmployee}) => {
+const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, showHireEmployeeModal, deleteEmployee, doLogout}) => {
 	const employeeList = employees.map((employee, i) => {
 		return (
             <li key={employee.id} id={employee.id}>
@@ -13,6 +13,7 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
 
 	return (
 		<div>
+			<button onClick={doLogout}>Log Out</button>
 			<h1> Here are all the employees: </h1>
 			<button onClick={showHireEmployeeModal}> Hire New Employee </button> <br/>
 			<button onClick={showWorkingEmployees}> Show Present Employees</button>

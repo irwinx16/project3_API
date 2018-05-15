@@ -15,7 +15,8 @@ class App extends Component {
       loggedIn: false,
       loginError: '',
       showingEmployee: false,
-      employeeId: ''
+      employeeId: '',
+      message: ''
     }
   }
   getEmployees = async () => {
@@ -46,7 +47,19 @@ class App extends Component {
     const employers = await employersJson.json();
     return employers;
   }
-
+  doLogout = async () => {
+    const logoutJson = await fetch('http://localhost:9292/employers/logout', {
+      credentials: 'include' // you MUST include in ALL ajax requests
+    })
+    const loggedOut = await logoutJson.json();
+    if (loggedOut.success) {
+      this.setState({
+        loggedIn: false,
+        message: "User has logged out."
+      })
+    }     
+    return loggedOut;
+  }
   doLogin = async (username, password) => {
     const response = await fetch('http://localhost:9292/employers/login', {
       method: 'POST',
@@ -208,11 +221,11 @@ class App extends Component {
           {this.state.showingEmployee ?
             <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage} shifts={this.state.shifts}/>
           : <div>
-              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee}/>
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} />
             </div>
           }
           </div>
-        : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} />
+        : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} message={this.state.message} />
         }
       </div>
     );
