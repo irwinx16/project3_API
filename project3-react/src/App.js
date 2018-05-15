@@ -202,6 +202,17 @@ class App extends Component {
       shifts: [...this.state.shifts, shiftsParsed.new_shift]
     })
   }
+  deleteShift = async (e) => {
+    const id = e.currentTarget.parentNode.id;
+    const shifts = await fetch (`http://localhost:9292/shifts/${id}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    });
+
+    this.setState({
+      shifts: this.state.shifts.filter((shift) => shift.id != id)
+    });
+  }
   openCreateShiftModal = () => {
     this.setState({
       showCreateShiftModal: true
@@ -288,7 +299,7 @@ class App extends Component {
             <div>
               <CreateShiftModal showCreateShiftModal={this.state.showCreateShiftModal} openCreateShiftModal={this.openCreateShiftModal} closeCreateShiftModal={this.closeCreateShiftModal} addShift={this.addShift} employeeId={this.state.employeeId}/>
               <EditModal showEditModal={this.state.showEditModal} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} closeEditModal={this.closeEditModal} employees={this.state.employees} employeeId={this.state.employeeId}/>
-              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} editedEmployee={this.state.editedEmployee} openCreateShiftModal={this.openCreateShiftModal}/>
+              <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} openCreateShiftModal={this.openCreateShiftModal} deleteShift={this.deleteShift}/>
             </div>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message}/>

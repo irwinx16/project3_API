@@ -2,7 +2,8 @@ import React from 'react';
 import EditModal from '../EditModal';
 import './style.css';
 
-const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout, openEditModal, editedEmployee, openCreateShiftModal}) => {
+const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout, openEditModal, openCreateShiftModal, deleteShift}) => {
+
 	const returnEmployee = employees.filter(employee => employee.id == employeeId);
 	const shownEmployee = returnEmployee[0];
 
@@ -13,7 +14,8 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
                 <b>Name:</b> {shift.name} <br/>
                 <b>Start of Shift:</b> {shift.start_shift} <br/>
                 <b>End of Shift:</b> {shift.end_shift} <br/>
-                <b>Notes:</b> {shift.notes}
+                <b>Notes:</b> {shift.notes} <br/>
+                <button key={shift.id} onClick={deleteShift}>Delete</button>
             </li>
         )
 	})
