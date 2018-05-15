@@ -14,7 +14,8 @@ class App extends Component {
       loggedIn: false,
       loginError: '',
       showingEmployee: false,
-      employeeId: ''
+      employeeId: '',
+      editedEmployee: ''
     }
   }
   getEmployees = async () => {
@@ -199,13 +200,24 @@ class App extends Component {
       employees: this.state.employees.filter((employee) => employee.id != id)
     });
   }
+  editedEmployee = (e) => {
+    const id = e.currentTarget.previousSibling.id;
+    console.log(id);
+
+    this.setState({
+    // showEdit: true,
+      editedEmployee: this.state.editedEmployee[id]
+    })
+  }
+
+
   render() {
     return (
       <div className="App">
         {this.state.loggedIn ?
           <div> 
           {this.state.showingEmployee ?
-            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}/>
+            <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage} editedEmployee={this.state.editedEmployee}/>
           : <div>
               <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee}/>
             </div>

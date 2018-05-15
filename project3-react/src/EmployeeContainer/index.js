@@ -40,7 +40,7 @@ class EmployeeContainer extends Component {
 	showWorkingEmployees = () => {
 		this.setState({showAllEmployees: false});
 	}
-	
+
 	render() {
 		return (
 			<div>
