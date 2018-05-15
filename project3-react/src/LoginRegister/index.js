@@ -30,7 +30,7 @@ class LoginRegister extends Component {
 		return (
 			<div>
 				<h1> {this.props.message} </h1>
-				{this.props.loginError != '' ? <p className="login-error">{this.props.loginError}</p> : null}
+				{this.props.loginError.toString() !== '' ? <p className="login-error">{this.props.loginError}</p> : null}
 
 				<p><span className={this.state.registering ? "current" : null}onClick={this.registration}>Register</span> • <span className={!this.state.registering ? "current" : null} onClick={this.loggingIn}>Log In</span></p>
 				<form onSubmit={this.handleSubmit}>

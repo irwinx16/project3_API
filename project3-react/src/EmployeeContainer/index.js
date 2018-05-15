@@ -44,7 +44,7 @@ class EmployeeContainer extends Component {
 	render() {
 		return (
 			<div>
-				<h1> Welcome to the website. </h1>
+				<h1> {this.props.message} </h1>
 				{ this.state.showAllEmployees ?
 					<div>
 						<HireEmployeeModal hireEmployee={this.props.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal}/>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import EmployeeContainer from './EmployeeContainer';
-import ShiftContainer from './ShiftContainer';
 import LoginRegister from './LoginRegister';
 import EmployeeProfile from './EmployeeProfile';
 
@@ -55,13 +54,13 @@ class App extends Component {
     if (loggedOut.success) {
       this.setState({
         loggedIn: false,
-        message: "User has logged out."
+        message: loggedOut.message
       })
     }     
     return loggedOut;
   }
   doLogin = async (username, password) => {
-    const response = await fetch('http://localhost:9292/employers/login', {
+    const loginJson = await fetch('http://localhost:9292/employers/login', {
       method: 'POST',
       credentials: 'include', // you MUST include in ALL ajax requests
       body: JSON.stringify({
@@ -69,13 +68,16 @@ class App extends Component {
         password: password
       }) 
     })
-    const parsedLoginResponse = await response.json();
-    if (parsedLoginResponse.success) {
+    const loggedIn = await loginJson.json();
+    if (loggedIn.success) {
+      this.setState({
+        loggedIn: true,
+        message: `Welcome back, ${username}!`
+      })
       this.getEmployees()
       .then((response) => {
         this.setState({
-          employees: response.employees,
-          loggedIn: true
+          employees: response.employees
         })
       })
       .catch((err) => {
@@ -114,12 +116,13 @@ class App extends Component {
 
     } else {
       this.setState({
-        loginError: parsedLoginResponse.message
+        loginError: loggedIn.message,
+        message: "We're sorry, there was an error. Please try again."
       });
     }
   }
   doRegister = async (username, password) => {
-    const response = await fetch('http://localhost:9292/employers/register', {
+    const registerJson = await fetch('http://localhost:9292/employers/register', {
       method: 'POST',
       credentials: 'include', // you MUST include in ALL ajax requests
       body: JSON.stringify({
@@ -127,10 +130,13 @@ class App extends Component {
         password: password
       }) 
     })
-    const parsedRegisterResponse = await response.json();
+    const parsedRegisterResponse = await registerJson.json();
     if (parsedRegisterResponse.success) {
 
-      this.setState({loggedIn: true})
+      this.setState({
+        loggedIn: true,
+        message: `Welcome to the site, ${username}!`
+      })
 
       this.getEmployees()
       .then((response) => {
@@ -221,7 +227,7 @@ class App extends Component {
           {this.state.showingEmployee ?
             <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage} shifts={this.state.shifts}/>
           : <div>
-              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} />
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message}/>
             </div>
           }
           </div>
