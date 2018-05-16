@@ -52,8 +52,8 @@ class CreateShiftModal extends Component {
 				<form onSubmit={this.props.addShift.bind(null, this.state)}>
 						New Shift: <br/>
 					<input type="text" name="name" placeholder="Shift Name" onChange={this.updateName}/> <br/>
-					<input type="text" name="start_shift" placeholder="Start of Shift" onChange={this.updateStartShift} /> <br/>
-					<input type="text" name="end_shift" placeholder="End of Shift" onChange={this.updateEndShift} /> <br/>
+					<input type="text" name="start_shift" placeholder="Start of Shift (YYYY-MM-DD HH:MM)" onChange={this.updateStartShift} /> <br/>
+					<input type="text" name="end_shift" placeholder="End of Shift (YYYY-MM-DD HH:MM)" onChange={this.updateEndShift} /> <br/>
 					<input type="text" name="notes" placeholder="Shift Notes" onChange={this.updateNotes} /> <br/>
 					<button onClick={this.props.closeCreateShiftModal}>Assign Shift</button>
 				</form>
