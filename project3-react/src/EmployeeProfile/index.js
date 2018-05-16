@@ -1,5 +1,9 @@
 import React from 'react';
 import EditModal from '../EditModal';
+import { Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
+import { NavItem } from 'react-bootstrap';
 import './style.css';
 
 const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout, openEditModal, openCreateShiftModal, deleteShift}) => {
@@ -22,10 +26,33 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
 
 	return (
 		<div>
-
-			<button onClick={returnToMainPage}>Return to Main Page</button>
-			<button onClick={doLogout}>Log Out</button>
-
+			<Navbar inverse collapseOnSelect>
+		        <Navbar.Header>
+		          <Navbar.Brand>
+		            <a href="#">EMS</a>
+		          </Navbar.Brand>
+		          <Navbar.Toggle />
+		        </Navbar.Header>
+		        <Navbar.Collapse>
+		          <Nav>
+		            <NavItem onClick={returnToMainPage}>
+		            	Show All Employees
+		            </NavItem>
+		            <NavItem onClick={openEditModal}>
+		            	Edit {shownEmployee.name}'s Profile
+		            </NavItem>
+		            <NavItem onClick={openCreateShiftModal}>
+		            	Assign {shownEmployee.name} a New Shift
+		            </NavItem>
+		          </Nav>
+		          <Nav pullRight>
+		            <NavItem onClick={doLogout}>
+		              Log Out
+		            </NavItem>
+		          </Nav>
+		        </Navbar.Collapse>
+		    </Navbar>
+			
 			<h1> {shownEmployee.name}'s Profile: </h1>
 			<p>
 				<b> Name: </b> {shownEmployee.name} <br/>
@@ -33,10 +60,9 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
 				<b> Notes: </b> {shownEmployee.notes} <br/>
 				<b> Availability: </b> {shownEmployee.availability}
 			</p>
-			<button onClick={openEditModal}>Edit Employee</button>
 
 			<h3>{shownEmployee.name} has {shiftList.length} shifts scheduled.</h3>
-			<button onClick={openCreateShiftModal}>Assign {shownEmployee.name} a new shift</button>
+			
 			<ul>
 				{shiftList}
 			</ul>

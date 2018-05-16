@@ -270,7 +270,7 @@ class App extends Component {
     });
   }
   openEditModal = (e) => {
-    const employeeID = parseInt(e.target.previousSibling.id)
+    const employeeID = parseInt(this.state.employeeId)
     const editedEmployee = this.state.employees.find((employee) => {
       return employee.id === employeeID
     })
@@ -302,7 +302,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.message, " this is the message we're displaying from the App.js");
     return (
       <div className="App">
         {this.state.loggedIn ?
