@@ -12,12 +12,14 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
 	const shownEmployee = returnEmployee[0];
 
 	const employeeShifts = shifts.filter(shift => shift.employee_id == employeeId);
+	// the Start of Shift and End of Shift code below looks messy 
+	// we're reformatting the output to be more human-friendly using Regular Expressions
 	const shiftList = employeeShifts.map((shift, i) => {
 		return (
             <li key={shift.id} id={shift.id}>
                 <b>Name:</b> {shift.name} <br/>
-                <b>Start of Shift:</b> {shift.start_shift} <br/>
-                <b>End of Shift:</b> {shift.end_shift} <br/>
+                <b>Start of Shift:</b> {shift.start_shift.toString().replace(/t/i, " ").replace(/.000Z/i, "")} <br/>
+                <b>End of Shift:</b> {shift.end_shift.toString().replace(/t/i, " ").replace(/.000Z/i, "")} <br/>
                 <b>Notes:</b> {shift.notes} <br/>
                 <button key={shift.id} onClick={deleteShift}>Delete</button>
             </li>
