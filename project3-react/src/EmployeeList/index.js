@@ -8,10 +8,21 @@ import './style.css';
 const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, showHireEmployeeModal, deleteEmployee, doLogout, message}) => {
 	const employeeList = employees.map((employee, i) => {
 		return (
-            <li key={employee.id} id={employee.id}>
-                <b>Name:</b> <span onClick={showEmployeeProfile}>{employee.name}</span> <b>Position:</b> {employee.position}
-                <button key={employee.id} onClick={deleteEmployee}>Delete</button>
-            </li>
+      <div className="container" key={employee.id}>
+        <div className="wrapper">
+          <div className="box id">ID</div>
+          <div className="box name">Name</div>
+          <div className="box position">Position</div>
+        </div>
+        <div className="row" id={employee.id}>
+          <div className="box id">
+            <span key={employee.id} onClick={deleteEmployee}>Delete</span>{employee.id}
+          </div>
+            <div className="box name" onClick={showEmployeeProfile}>{employee.name}
+            </div>
+            <div className="box position">{employee.position}</div>
+        </div>
+      </div>
         )
 	})
 
@@ -20,7 +31,7 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">EMS</a>
+            <a>EMS</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -43,9 +54,7 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
 
       <h3> {message} </h3>
 			<h4> Here are all the employees: </h4>
-			<ul>
 				{employeeList}
-			</ul>
 		</div>
 	);
 }

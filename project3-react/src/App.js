@@ -259,7 +259,7 @@ class App extends Component {
       })
   }
   deleteEmployee = async (e) => {
-    const id = e.currentTarget.parentNode.id;
+    const id = e.currentTarget.parentNode.parentNode.id;
     const employees = await fetch (`http://localhost:9292/employees/${id}`, {
       credentials: 'include',
       method: 'DELETE'
