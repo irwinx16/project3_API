@@ -13,11 +13,11 @@ class App extends Component {
       whosWorking: [],
       shifts: [],
       loggedIn: false,
-      loginError: '',
       showingEmployee: false,
       employeeId: '',
-      logoutMessage: '',
       message: '',
+      logOutMessage: '',
+      logInErrorMessage: '',
       editedEmployee: '',
       showEditModal: false,
       showCreateShiftModal: false
@@ -33,7 +33,7 @@ class App extends Component {
   }
   makeBlankLogOutMessage = () => {
     this.setState({
-      logoutMessage: ''
+      logOutMessage: ''
     });
   }
   getEmployees = async () => {
@@ -72,7 +72,7 @@ class App extends Component {
     if (loggedOut.success) {
       this.setState({
         loggedIn: false,
-        logoutMessage: loggedOut.message
+        logOutMessage: loggedOut.message
       })
     }
     return loggedOut;
@@ -90,6 +90,7 @@ class App extends Component {
     if (loggedIn.success) {
       this.setState({
         loggedIn: true,
+        logInErrorMessage: '',
         message: `Welcome back, ${username}!`
       })
       this.getEmployees()
@@ -134,7 +135,7 @@ class App extends Component {
 
     } else {
       this.setState({
-        loginError: loggedIn.message
+        logInErrorMessage: loggedIn.message
       });
     }
   }
@@ -197,7 +198,7 @@ class App extends Component {
 
     } else {
       this.setState({
-        loginError: parsedRegisterResponse.message
+        logInErrorMessage: parsedRegisterResponse.message
       });
     }
   }
@@ -317,7 +318,7 @@ class App extends Component {
             </div>
           }
           </div>
-        : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} loginError={this.state.loginError} logoutMessage={this.state.logoutMessage} makeBlankLogOutMessage={this.makeBlankLogOutMessage} />
+        : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} logInErrorMessage={this.state.logInErrorMessage} logOutMessage={this.state.logOutMessage} makeBlankLogOutMessage={this.makeBlankLogOutMessage}/>
         }
       </div>
     );

@@ -43,8 +43,8 @@ class LoginRegister extends Component {
 				<Jumbotron>
   				<h1>Welcome to EMS!</h1>
   				<h3>Employment Management Software</h3>
-					<h4> {this.props.logoutMessage} </h4>
-					{this.props.loginError.toString() !== '' ? <p className="login-error">{this.props.loginError}</p> : null}
+					<h4> {this.props.logOutMessage} </h4>
+					{this.props.logInErrorMessage.toString() !== '' ? <p className="login-error">{this.props.logInErrorMessage.toString()}</p> : null}
 
 					<p><span className={this.state.registering ? "current" : null}onClick={this.registration}>Register</span> • <span className={!this.state.registering ? "current" : null} onClick={this.loggingIn}>Log In</span></p>
 					<Form horizontal onSubmit={this.handleSubmit}>
@@ -71,7 +71,7 @@ class LoginRegister extends Component {
     					</Col>
   					</FormGroup>
 					</Form>
-				</Jumbotron>;
+				</Jumbotron>
 			</div>
 		)
 	}
