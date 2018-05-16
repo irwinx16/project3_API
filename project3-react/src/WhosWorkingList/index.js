@@ -8,9 +8,17 @@ import './style.css';
 const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList, doLogout}) => {
 	const WhosWorkingList = whosWorking.map((employee, i) => {
 		return (
-			<li key={employee.id} id={employee.id}>
-				<b>Name:</b> <span onClick={showEmployeeProfile}>{employee.name}</span> <b>Position:</b> {employee.position}
-			</li>
+			<div className="container" key={employee.id}>
+		        <div className="row-present" id={employee.id}>
+		          <div className="box id">
+		            {employee.id}
+		          </div>
+		          <div className="box name">
+		            <span onClick={showEmployeeProfile}>{employee.name}</span>
+		          </div>
+		            <div className="box position">{employee.position}</div>
+		        </div>
+		    </div>
 		)
 	})
 	return (
@@ -36,9 +44,14 @@ const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList, do
 		        </Navbar.Collapse>
 		    </Navbar>
 			<h2> Present Employees: </h2>
-			<ul>
+			<div className="container">
+		        <div className="wrapper-present">
+		          <div className="box id">ID</div>
+		          <div className="box name">Name</div>
+		          <div className="box position">Position</div>
+		        </div>
+		      </div>
 				{WhosWorkingList}
-			</ul>
 		</div>
 	);
 }

@@ -1,0 +1,37 @@
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.wrapper-present {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(50px, 1fr));
+  background-color: #fff;
+  color: #444;
+}
+
+.row-present {
+  margin-left: 0;
+  margin-right: 0;
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(50px, 1fr));
+}
+
+.box {
+  background-color: none;
+  color: black;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 100%;
+}
+
+.row::before {
+  display: none;
+}
+.row::after{
+  display: none;
+}

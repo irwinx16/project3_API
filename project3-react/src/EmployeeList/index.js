@@ -18,7 +18,7 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
           </div>
             <div className="box position">{employee.position}</div>
           <div className="box delete">
-            <span onClick={deleteEmployee}>Delete</span>
+            <Button onClick={deleteEmployee} bsSize="small" bsStyle="danger">Delete</Button>
           </div>
         </div>
       </div>
