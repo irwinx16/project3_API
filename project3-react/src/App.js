@@ -236,7 +236,7 @@ class App extends Component {
     })
   }
   showEmployeeProfile = (e) => {
-    const id = e.currentTarget.parentNode.id;
+    const id = e.currentTarget.parentNode.parentNode.id;
     this.setState({
       showingEmployee: true,
       employeeId: id

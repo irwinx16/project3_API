@@ -15,18 +15,20 @@ ul button:hover {
 
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(3, minmax(50px, 1fr));
+  grid-template-columns: repeat(4, minmax(50px, 1fr));
   background-color: #fff;
   color: #444;
 }
 
 .row {
+  margin-left: 0;
+  margin-right: 0;
   grid-column: 1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(50px, 1fr));
+  grid-template-columns: repeat(4, minmax(50px, 1fr));
 }
-div:nth-child(5) { grid-row-start: 3; }
-div:nth-child(4) { grid-row-start: 3; }
+/*div:nth-child(6) { grid-row-start: 4; }
+div:nth-child(5) { grid-row-start: 4; }*/
 
 .box {
   background-color: none;

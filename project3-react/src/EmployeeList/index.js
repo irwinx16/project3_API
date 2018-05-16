@@ -11,11 +11,15 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
       <div className="container" key={employee.id}>
         <div className="row" id={employee.id}>
           <div className="box id">
-            <span key={employee.id} onClick={deleteEmployee}>Delete</span>{employee.id}
+            {employee.id}
           </div>
-            <div className="box name" onClick={showEmployeeProfile}>{employee.name}
-            </div>
+          <div className="box name">
+            <span onClick={showEmployeeProfile}>{employee.name}</span>
+          </div>
             <div className="box position">{employee.position}</div>
+          <div className="box delete">
+            <span onClick={deleteEmployee}>Delete</span>
+          </div>
         </div>
       </div>
         )
@@ -48,11 +52,13 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
       </Navbar>
       <h3> {message} </h3>
       <h4> Here are all the employees: </h4>
+
       <div className="container">
         <div className="wrapper">
           <div className="box id">ID</div>
           <div className="box name">Name</div>
           <div className="box position">Position</div>
+          <div className="box delete">Delete</div>
         </div>
       </div>
 				{employeeList}
