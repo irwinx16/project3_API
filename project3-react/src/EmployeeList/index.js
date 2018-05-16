@@ -9,11 +9,6 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
 	const employeeList = employees.map((employee, i) => {
 		return (
       <div className="container" key={employee.id}>
-        <div className="wrapper">
-          <div className="box id">ID</div>
-          <div className="box name">Name</div>
-          <div className="box position">Position</div>
-        </div>
         <div className="row" id={employee.id}>
           <div className="box id">
             <span key={employee.id} onClick={deleteEmployee}>Delete</span>{employee.id}
@@ -51,9 +46,15 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-
       <h3> {message} </h3>
-			<h4> Here are all the employees: </h4>
+      <h4> Here are all the employees: </h4>
+      <div className="container">
+        <div className="wrapper">
+          <div className="box id">ID</div>
+          <div className="box name">Name</div>
+          <div className="box position">Position</div>
+        </div>
+      </div>
 				{employeeList}
 		</div>
 	);
