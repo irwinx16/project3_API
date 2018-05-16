@@ -8,10 +8,12 @@ ul button:hover {
 
 .navbar-inverse .navbar-nav>li>a {
     color: white;
+    cursor: pointer;
 }
 
 .navbar-inverse .navbar-brand {
     color: white;
+    cursor: pointer;
 }
 
 .wrapper {
