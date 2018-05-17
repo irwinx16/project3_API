@@ -12,18 +12,31 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
 	const shownEmployee = returnEmployee[0];
 
 	const employeeShifts = shifts.filter(shift => shift.employee_id == employeeId);
-	// the Start of Shift and End of Shift code below looks messy 
+
+	// the Start of Shift and End of Shift code below looks messy
 	// we're reformatting the output to be more human-friendly using a chain of string methods
 	const shiftList = employeeShifts.map((shift, i) => {
 		return (
-            <li key={shift.id} id={shift.id}>
-                <b>Name:</b> {shift.name} <br/>
-                <b>Start of Shift:</b> {shift.start_shift.toString().replace(/t/i, " ").replace(/.000Z/i, "").slice(0,16)} <br/>
-                <b>End of Shift:</b> {shift.end_shift.toString().replace(/t/i, " ").replace(/.000Z/i, "").slice(0,16)} <br/>
-                <b>Notes:</b> {shift.notes} <br/>
-                <button key={shift.id} onClick={deleteShift}>Delete</button>
-            </li>
-        )
+			<div className="containerProfile" key={shift.id}>
+				<div className="rowProfile" id={shift.id}>
+					<div className="boxProfile id">
+						{shift.id}
+					</div>
+				<div className="boxProfile startShift">
+					{shift.start_shift.toString().replace(/t/i, " ").replace(/.000Z/i, "").slice(0,16)}
+				</div>
+				<div className="boxProfile endShift">
+					{shift.end_shift.toString().replace(/t/i, " ").replace(/.000Z/i, "").slice(0,16)}
+				</div>
+				<div className="boxProfile notes">
+					{shift.notes}
+				</div>
+				<div className="boxProfile delete">
+       		<Button onClick={deleteShift} bsSize="small" bsStyle="danger">Delete</Button>
+        </div>
+      	</div>
+      </div>
+     )
 	})
 
 	return (
@@ -54,20 +67,30 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
 		          </Nav>
 		        </Navbar.Collapse>
 		    </Navbar>
-			
 			<h1> {shownEmployee.name}'s Profile: </h1>
-			<p>
+
+			<h3>
 				<b> Name: </b> {shownEmployee.name} <br/>
 				<b> Position: </b> {shownEmployee.position} <br/>
 				<b> Notes: </b> {shownEmployee.notes} <br/>
 				<b> Availability: </b> {shownEmployee.availability}
-			</p>
+			</h3>
+
+
 
 			<h3>{shownEmployee.name} has {shiftList.length} shifts scheduled.</h3>
-			
-			<ul>
+			<div className="containerProfile">
+        <div className="wrapperProfile">
+          <div className="boxProfile id">ID</div>
+					<div className="boxProfile startShift">Start Shift</div>
+          <div className="boxProfile endShift">End Shift</div>
+          <div className="boxProfile notes">Notes</div>
+          <div className="boxProfile delete">Delete</div>
+        </div>
+      </div>
+
+
 				{shiftList}
-			</ul>
 
 		</div>
 	);

@@ -202,20 +202,30 @@ class App extends Component {
       });
     }
   }
-  addShift = async (shift, e) => {
+  addShift = (shift, e) => {
     e.preventDefault();
-    const shiftsJson = await fetch ('http://localhost:9292/shifts', {
+    fetch ('http://localhost:9292/shifts', {
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify(shift)
-    })
-    const shiftsParsed = await shiftsJson.json();
-    this.setState({
-      shifts: [...this.state.shifts, shiftsParsed.new_shift]
-    })
+    }).then(r=> { console.log("fetch is done, response r = ", r);
+      this.getWhosWorking()
+        .then(response => {
+          console.log("got whos working and about to add based on response ", response);
+          this.setState({
+            whosWorking: response.whosworking
+          })
+        });
+      })
+    // const shiftsParsed = await shiftsJson.json();
+    // console.log(shiftsParsed.new_shift);
+    // this.setState({
+    //   shifts: [...this.state.shifts, shiftsParsed.new_shift]
+    // })
+    // console.log(this.state, "to see if it's there in addShift after adding in App.js")
   }
   deleteShift = async (e) => {
-    const id = e.currentTarget.parentNode.id;
+    const id = e.currentTarget.parentNode.parentNode.id;
     const shifts = await fetch (`http://localhost:9292/shifts/${id}`, {
       credentials: 'include',
       method: 'DELETE'
@@ -314,7 +324,7 @@ class App extends Component {
               <EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} openCreateShiftModal={this.openCreateShiftModal} deleteShift={this.deleteShift}/>
             </div>
           : <div>
-              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message} makeBlankMessage={this.makeBlankMessage}/>
+              <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} hireEmployee={this.hireEmployee} getEmployees={this.getEmployees} deleteEmployee={this.deleteEmployee} doLogout={this.doLogout} message={this.state.message} makeBlankMessage={this.makeBlankMessage} shifts={this.state.shifts} />
             </div>
           }
           </div>

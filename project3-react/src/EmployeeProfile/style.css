@@ -1,0 +1,34 @@
+
+.wrapperProfile {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(40px, 1fr));
+  background-color: #fff;
+  color: #444;
+}
+
+.rowProfile {
+  margin-left: 0;
+  margin-right: 0;
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(40px, 1fr));
+  width: 100%;
+}
+
+.boxProfile {
+  background-color: none;
+  color: black;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 100%;
+  width: 100%;
+}
+
+div.container::before {
+  display: none;
+}
+div.container::after{
+  display: none;
+}
+
+

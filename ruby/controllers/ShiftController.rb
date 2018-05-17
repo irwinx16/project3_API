@@ -20,7 +20,7 @@ class ShiftController < ApplicationController
 			success: true,
 			message: "These are all #{shifts.length} shifts.",
 			shifts: shifts
-		}.to_json	
+		}.to_json
 	end
 
 	# show route
@@ -80,7 +80,7 @@ class ShiftController < ApplicationController
 
 	# delete route
 	delete '/:id' do
-		
+
 		deleted_shift = Shift.find params[:id]
 		deleted_shift.destroy
 		{

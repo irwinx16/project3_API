@@ -24,6 +24,7 @@ class EmployeeContainer extends Component {
 		this.setState({
 			employees: this.props.employees,
 			whosWorking: this.props.whosWorking
+
 		})
 	}
 	hideHireEmployeeModal = () => {
@@ -52,8 +53,7 @@ class EmployeeContainer extends Component {
 						<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees} showHireEmployeeModal={this.showHireEmployeeModal}
 							deleteEmployee={this.props.deleteEmployee} doLogout={this.props.doLogout} message={this.props.message}/>
 					</div>
-
-				:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile}showEmployeeList={this.showEmployeeList} doLogout={this.props.doLogout}/>
+				:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile} showEmployeeList={this.showEmployeeList} doLogout={this.props.doLogout}/>
 				}
 			</div>
 		);
