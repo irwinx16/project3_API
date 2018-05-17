@@ -23,9 +23,6 @@ class App extends Component {
       showCreateShiftModal: false
     }
   }
-  // componentDidMount() {
-  //   this.setState({this.state})
-  // }
   makeBlankMessage = () => {
     this.setState({
       message: ''
@@ -113,7 +110,6 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
-
       this.getShifts()
       .then((response) => {
         this.setState({
@@ -123,7 +119,6 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
-
       this.getWhosWorking()
       .then((response) => {
         this.setState({
@@ -133,7 +128,6 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
-
     } else {
       this.setState({
         logInErrorMessage: loggedIn.message
@@ -203,29 +197,12 @@ class App extends Component {
       });
     }
   }
-  addShift = (shift, e) => {
+  addShift = async (shift, e) => {
     e.preventDefault();
-    fetch ('http://localhost:9292/shifts', {
+    const shiftsJson = await fetch ('http://localhost:9292/shifts', {
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify(shift)
-<<<<<<< HEAD
-    }).then(r=> { console.log("fetch is done, response r = ", r);
-      this.getWhosWorking()
-        .then(response => {
-          console.log("got whos working and about to add based on response ", response);
-          this.setState({
-            whosWorking: response.whosworking
-          })
-        });
-      })
-    // const shiftsParsed = await shiftsJson.json();
-    // console.log(shiftsParsed.new_shift);
-    // this.setState({
-    //   shifts: [...this.state.shifts, shiftsParsed.new_shift]
-    // })
-    // console.log(this.state, "to see if it's there in addShift after adding in App.js")
-=======
     })
     const shiftsParsed = await shiftsJson.json();
     this.setState({
@@ -241,8 +218,8 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
->>>>>>> 434dc4e1661f8a05469be5be2aacb668d4bce6d7
   }
+
   deleteShift = async (e) => {
     const id = e.currentTarget.parentNode.parentNode.id;
     const shifts = await fetch (`http://localhost:9292/shifts/${id}`, {
@@ -287,16 +264,16 @@ class App extends Component {
     })
   }
   hireEmployee = async (employee, e) => {
-      e.preventDefault();
-      const employeesJson = await fetch ('http://localhost:9292/employees', {
-        credentials: 'include',
-        method: 'POST',
-        body: JSON.stringify(employee)
-      });
-      const employeesParsed = await employeesJson.json();
-      this.setState({
-        employees: [...this.state.employees, employeesParsed.new_employee]
-      })
+    e.preventDefault();
+    const employeesJson = await fetch ('http://localhost:9292/employees', {
+      credentials: 'include',
+      method: 'POST',
+      body: JSON.stringify(employee)
+    });
+    const employeesParsed = await employeesJson.json();
+    this.setState({
+      employees: [...this.state.employees, employeesParsed.new_employee]
+    })
   }
   deleteEmployee = async (e) => {
     const id = e.currentTarget.parentNode.parentNode.id;

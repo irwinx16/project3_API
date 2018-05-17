@@ -1,17 +1,15 @@
-class ApplicationController < Sinatra::Base 
+class ApplicationController < Sinatra::Base
 
 	require 'bundler'
 	Bundler.require()
-	
 
 	ActiveRecord::Base.establish_connection(
 		:adapter => 'postgresql',
 		:database => 'employer'
 	)
-
 	use Rack::Session::Cookie,	:key => 'rack.session',
-								:path => '/',
-								:secret => 'your_secret'
+		:path => '/',
+		:secret => 'your_secret'
 
 	get '/' do
 		{
@@ -35,9 +33,9 @@ class ApplicationController < Sinatra::Base
 	set :allow_credentials, true # session info / API key enable
 
 	options '*' do
-	    response.headers['Allow'] = 'HEAD, GET, POST, PUT, PATCH, DELETE'
-	    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
-	    response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
+		response.headers['Allow'] = 'HEAD, GET, POST, PUT, PATCH, DELETE'
+		response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+		response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
 	end
 
 end

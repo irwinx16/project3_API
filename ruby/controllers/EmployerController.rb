@@ -5,15 +5,12 @@ class EmployerController < ApplicationController
 		payload_body = request.body.read
 		if(payload_body != "")
 			@payload = JSON.parse(payload_body).symbolize_keys
-
-				logger.info "-------PAYLOAD HERE----------------------------"
-				pp @payload
-				logger.info "-----------------------------------"
+			pp @payload
 		end
 	end
 
 	# get route
-	get '/' do 
+	get '/' do
 		employers = Employer.all
 		{
 			success: true,
@@ -34,15 +31,14 @@ class EmployerController < ApplicationController
 
 	# register route
 	post '/register' do
-		employer = Employer.new
-		employer.username = @payload[:username]
-		employer.password = @payload[:password]
+		employer 							= Employer.new
+		employer.username 		= @payload[:username]
+		employer.password 		= @payload[:password]
 		employer.save
 
-		session[:logged_in] = true
-		session[:username] = employer.username
+		session[:logged_in]		= true
+		session[:username]		= employer.username
 		session[:employer_id] = employer.id
-
 		{
 			success: true,
 			message: "You are now registered as #{employer.username}."
@@ -57,17 +53,16 @@ class EmployerController < ApplicationController
 		employer = Employer.find_by username: username
 
 		if employer && employer.authenticate(password)
-			session[:logged_in] = true
-			session[:username] = username
+			session[:logged_in] 	= true
+			session[:username] 		= username
 			session[:employer_id] = employer.id
-
 			{
 				success: true,
 				employer_id: employer.id,
 				username: username,
 				message: "Login successful. Cookie created."
 			}.to_json
-		else 
+		else
 			{
 				success: false,
 				message: "Invalid username or password."
@@ -87,9 +82,8 @@ class EmployerController < ApplicationController
 
 	# edit route
 	put '/:id' do
-		updated_employer = Employer.find params[:id]
+		updated_employer 					= Employer.find params[:id]
 		updated_employer.username = @payload[:username]
-
 		# not sure if this actually will update the password when they login, but it works in json
 		updated_employer.password_digest = @payload[:password]
 		updated_employer.save

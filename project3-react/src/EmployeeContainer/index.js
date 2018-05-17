@@ -46,7 +46,6 @@ class EmployeeContainer extends Component {
 		{this.setMessageTimeout()}
 		return (
 			<div>
-
 				{ this.state.showAllEmployees ?
 					<div>
 						<HireEmployeeModal hireEmployee={this.props.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal} />

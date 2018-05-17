@@ -27,14 +27,13 @@ class EmployeeController < ApplicationController
 		whosworking = Employee.all.select do |employee|
 			employee.working?
 		end
-
 		{
 			success: true,
 			message: "Here are all #{whosworking.length} employees currently working.",
 			whosworking: whosworking
 		}.to_json
 	end
-	
+
 	# employee show route
 	get '/:id' do
 		shown_employee = Employee.find params[:id]
@@ -45,17 +44,6 @@ class EmployeeController < ApplicationController
 		}.to_json
 	end
 
-	# get '/:id/currentlyworking' do #FOR TESTING THE METHOD INSIDE THE SHIFTMODEL
-	# 	shown_employee    = Employee.find params[:id]
-	# 	currently_working = Shift.employee_working?(params[:id])
-	# 	message 					= currently_working ? 'is' : 'is not'
-	# 	{
-	# 		success: true,
-	# 		message: "#{shown_employee.name} #{message} currently working",
-	# 		currently_working: currently_working
-	# 	}.to_json
-	# end
-
 	# create route
 	post '/' do
 		new_employee 						  = Employee.new
@@ -63,8 +51,6 @@ class EmployeeController < ApplicationController
 		new_employee.position 		= @payload[:position]
 		new_employee.notes 				= @payload[:notes]
 		new_employee.availability = @payload[:availability]
-		# new_employee.present 			= @payload[:present]
-		# new_employee.shift_id 		= @payload[:shift_id]
 		new_employee.save
 		{
 			success: true,
@@ -81,8 +67,6 @@ class EmployeeController < ApplicationController
 		updated_employee.position 		= @payload[:position]
 		updated_employee.notes 			  = @payload[:notes]
 		updated_employee.availability = @payload[:availability]
-		# updated_employee.present 			= @payload[:present]
-		# updated_employee.shift_id 		= @payload[:shift_id]
 		updated_employee.save
 		{
 			success: true,

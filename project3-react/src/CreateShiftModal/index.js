@@ -33,7 +33,7 @@ class CreateShiftModal extends Component {
 		});
 	}
 	updateStartShiftTime = (e) => {
-		const start_shift_time = e.currentTarget.value 
+		const start_shift_time = e.currentTarget.value
 		this.setState({
 			start_shift: [...this.state.start_shift, " ", start_shift_time].join().replace(/,/g,"")
 		})
@@ -59,7 +59,7 @@ class CreateShiftModal extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(this.props.addShift, " this is the function we're calling to add the shift");
-		
+
 	}
 	resetState = () => {
 		this.setState({

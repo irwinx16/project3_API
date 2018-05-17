@@ -65,7 +65,7 @@ class LoginRegister extends Component {
 								<FormControl type="password" placeholder="Password" value={this.state.password} onChange={this.handleInput} />
 							</Col>
 						</FormGroup>
-						 <FormGroup>
+						<FormGroup>
     					<Col smOffset={0} sm={12}>
       				<Button bsStyle="primary" type="submit"> {this.state.registering ? "Register" : "Log In"}</Button>
     					</Col>

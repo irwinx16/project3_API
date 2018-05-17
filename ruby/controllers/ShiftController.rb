@@ -6,10 +6,7 @@ class ShiftController < ApplicationController
 		# making sure that it is not empty
 		if !payload_body.empty?
 		  	@payload = JSON.parse(payload_body).symbolize_keys
-
-		  	puts "-----------------------------------------------HERE IS OUR PAYLOAD"
 		  	pp @payload
-		  	puts "-----------------------------------------------------------------"
 		end
 	end
 
@@ -63,7 +60,6 @@ class ShiftController < ApplicationController
 
 	# edit route
 	put '/:id' do
-
 		updated_shift 						= Shift.find params[:id]
 		updated_shift.name 				= @payload[:name]
 		updated_shift.employee_id = @payload[:employee_id]
@@ -80,7 +76,6 @@ class ShiftController < ApplicationController
 
 	# delete route
 	delete '/:id' do
-
 		deleted_shift = Shift.find params[:id]
 		deleted_shift.destroy
 		{
