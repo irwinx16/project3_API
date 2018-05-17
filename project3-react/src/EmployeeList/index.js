@@ -50,9 +50,9 @@ const EmployeeList = ({employees, showEmployeeProfile, showWorkingEmployees, sho
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-
       <h3> {message} </h3>
-			<h4> Here are all the employees: </h4>
+      <h4> Here are all the employees: </h4>
+
       <div className="container">
         <div className="wrapper">
           <div className="box id">ID</div>

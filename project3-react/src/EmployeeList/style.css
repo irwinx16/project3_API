@@ -1,9 +1,19 @@
+<<<<<<< HEAD
+,ul span:hover {
+	cursor: pointer;
+}
+ul button:hover {
+	cursor: pointer;
+}
+
 .navbar-inverse .navbar-nav>li>a {
     color: white;
+    cursor: pointer;
 }
 
 .navbar-inverse .navbar-brand {
     color: white;
+    cursor: pointer;
 }
 
 .wrapper {
