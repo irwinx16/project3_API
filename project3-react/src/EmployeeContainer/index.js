@@ -38,6 +38,7 @@ class EmployeeContainer extends Component {
       shifts: this.props.shifts,
       employeeId: this.props.employeeId
     })
+    {this.setMessageTimeout()}
   }
 
   // SHOW / HIDE MODALS
@@ -191,18 +192,9 @@ class EmployeeContainer extends Component {
   setMessageTimeout = () => {
     setTimeout(this.props.makeBlankMessage, 1000);
   }
-  makeBlankMessage = () => {
-    this.setState({
-      message: ''
-    });
-  }
-  makeBlankLogOutMessage = () => {
-    this.setState({
-      logOutMessage: ''
-    });
-  }
+
   render() {
-    {this.setMessageTimeout()}
+    
     return (
       <div>
         {this.state.showingEmployeeProfile ?

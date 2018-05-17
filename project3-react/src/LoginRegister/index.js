@@ -17,6 +17,9 @@ class LoginRegister extends Component {
 			registering: false,
 		}
 	}
+	componentDidMount() {
+		{this.setMessageTimeout()}
+	}
 	handleSubmit = (e) => {
 		e.preventDefault();
 		if (this.state.registering) this.props.doRegister(this.state.username, this.state.password)
@@ -37,7 +40,6 @@ class LoginRegister extends Component {
 		setTimeout(this.props.makeBlankLogOutMessage, 1000);
 	}
 	render() {
-		{this.setMessageTimeout()}
 		return (
 			<div>
 				<Jumbotron>
