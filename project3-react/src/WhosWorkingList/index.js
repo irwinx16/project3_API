@@ -5,7 +5,7 @@ import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
 import './style.css';
 
-const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList, doLogout}) => {
+const WhosWorkingList = ({whosWorking, showEmployeeProfile, showAllEmployees, doLogout}) => {
 	const WhosWorkingList = whosWorking.map((employee, i) => {
 		return (
 			<div className="container" key={employee.id}>
@@ -32,7 +32,7 @@ const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList, do
 		        </Navbar.Header>
 		        <Navbar.Collapse>
 		          <Nav>
-		            <NavItem onClick={showEmployeeList}>
+		            <NavItem onClick={showAllEmployees}>
 		            	Show All Employees
 		            </NavItem>
 		          </Nav>

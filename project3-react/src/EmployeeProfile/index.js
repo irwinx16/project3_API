@@ -10,7 +10,6 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
 
 	const returnEmployee = employees.filter(employee => employee.id == employeeId);
 	const shownEmployee = returnEmployee[0];
-
 	const employeeShifts = shifts.filter(shift => shift.employee_id == employeeId);
 
 	// the Start of Shift and End of Shift code below looks messy

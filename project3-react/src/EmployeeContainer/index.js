@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import EmployeeList from '../EmployeeList';
 import WhosWorkingList from '../WhosWorkingList';
 import HireEmployeeModal from '../HireEmployeeModal';
+import EmployeeProfile from '../EmployeeProfile';
+import EditModal from '../EditModal';
+import CreateShiftModal from '../CreateShiftModal';
 import './style.css';
 
 class EmployeeContainer extends Component {
@@ -10,49 +13,200 @@ class EmployeeContainer extends Component {
 		this.state = {
 			employees: [],
 			whosWorking: [],
-			showAllEmployees: true,
-			showHireModal: false
+			shifts: [],
+			employeeId: '',
+			showingAllEmployees: true,
+			showHireModal: false,
+			showingEmployeeProfile: false,
+			editedEmployee: '',
+		    showEditModal: false,
+		    showCreateShiftModal: false
 		}
 	}
 	componentWillReceiveProps(nextProps){
 		this.setState({
 			employees: nextProps.employees,
 			whosWorking: nextProps.whosWorking,
+			shifts: nextProps.shifts,
+			employeeId: nextProps.employeeId
 		});
 	}
 	componentDidMount() {
 		this.setState({
 			employees: this.props.employees,
-			whosWorking: this.props.whosWorking
+			whosWorking: this.props.whosWorking,
+			shifts: this.props.shifts,
+			employeeId: this.props.employeeId
 		})
 	}
+
 	hideHireEmployeeModal = () => {
 		this.setState({showHireModal: false});
 	}
 	showHireEmployeeModal = () => {
 		this.setState({showHireModal: true});
 	}
-	showEmployeeList = () => {
-		this.setState({showAllEmployees: true});
+	showAllEmployees = () => {
+		this.setState({showingAllEmployees: true});
 	}
 	showWorkingEmployees = () => {
-		this.setState({showAllEmployees: false});
+		this.setState({
+			showingAllEmployees: false,
+			showingEmployeeProfile: false
+		});
 	}
 	setMessageTimeout = () => {
 		setTimeout(this.props.makeBlankMessage, 1000);
 	}
+	closeEditModal = () => {
+	    this.setState({
+	      showEditModal: false
+	    })
+	}
+  editEmployee = async (editedEmployee) => {
+    const id = this.state.employeeId;
+    const employee = await fetch("http://localhost:9292/employees/" + id, {
+      method: 'PUT',
+      body: JSON.stringify(editedEmployee)
+    })
+    const response = await employee.json()
+
+    const editedEmployeeIndex = this.state.employees.findIndex((employee) => {
+      return employee.id == response.updated_employee.id;
+    });
+    this.state.employees[editedEmployeeIndex] = response.updated_employee;
+    this.setState({
+      editedEmployee: `${response.updated_employee}`
+    })
+  }
+  deleteShift = async (e) => {
+    const id = e.currentTarget.parentNode.parentNode.id;
+    const shifts = await fetch (`http://localhost:9292/shifts/${id}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    });
+
+    this.setState({
+      shifts: this.state.shifts.filter((shift) => shift.id != id)
+    });
+    // we have to get whosworking again to update the page as soon as a shift is deleted
+    this.props.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+  openCreateShiftModal = () => {
+    this.setState({
+      showCreateShiftModal: true
+    })
+  }
+  closeCreateShiftModal = () => {
+    this.setState({
+      showCreateShiftModal: false
+    })
+  }
+  showEmployeeProfile = (e) => {
+    const id = e.currentTarget.parentNode.parentNode.id;
+    this.setState({
+      showingEmployeeProfile: true,
+      employeeId: id
+    })
+  }
+  returnToMainPage = () => {
+    this.setState({
+      showingEmployeeProfile: false
+    })
+  }
+  hireEmployee = async (employee, e) => {
+      e.preventDefault();
+      const employeesJson = await fetch ('http://localhost:9292/employees', {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(employee)
+      });
+      const employeesParsed = await employeesJson.json();
+      this.setState({
+        employees: [...this.state.employees, employeesParsed.new_employee]
+      })
+  }
+  deleteEmployee = async (e) => {
+    const id = e.currentTarget.parentNode.parentNode.id;
+    const employees = await fetch (`http://localhost:9292/employees/${id}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    });
+
+    this.setState({
+      employees: this.state.employees.filter((employee) => employee.id != id)
+    });
+  }
+  openEditModal = (e) => {
+    const employeeID = parseInt(this.state.employeeId)
+    const editedEmployee = this.state.employees.find((employee) => {
+      return employee.id === employeeID
+    })
+    this.setState({
+      showEditModal: true,
+      editedEmployee: editedEmployee
+    });
+  }
+  addShift = async (shift, e) => {
+    e.preventDefault();
+    const shiftsJson = await fetch ('http://localhost:9292/shifts', {
+      credentials: 'include',
+      method: 'POST',
+      body: JSON.stringify(shift)
+    })
+    const shiftsParsed = await shiftsJson.json();
+    this.setState({
+      shifts: [...this.state.shifts, shiftsParsed.new_shift]
+    })
+    // we have to get whosworking again to update the page as soon as a shift is added
+     this.props.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+  makeBlankMessage = () => {
+    this.setState({
+      message: ''
+    });
+  }
+  makeBlankLogOutMessage = () => {
+    this.setState({
+      logOutMessage: ''
+    });
+  }
 	render() {
 		{this.setMessageTimeout()}
 		return (
 			<div>
-
-				{ this.state.showAllEmployees ?
+				{this.state.showingEmployeeProfile ?
 					<div>
-						<HireEmployeeModal hireEmployee={this.props.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal} />
-						<EmployeeList employees={this.state.employees} showEmployeeProfile={this.props.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees} showHireEmployeeModal={this.showHireEmployeeModal}
-							deleteEmployee={this.props.deleteEmployee} doLogout={this.props.doLogout} message={this.props.message}/>
-					</div>
-				:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.props.showEmployeeProfile} showEmployeeList={this.showEmployeeList} doLogout={this.props.doLogout}/>
+						<CreateShiftModal showCreateShiftModal={this.state.showCreateShiftModal} openCreateShiftModal={this.openCreateShiftModal} closeCreateShiftModal={this.closeCreateShiftModal} addShift={this.addShift} employeeId={this.state.employeeId}/>
+		              	<EditModal showEditModal={this.state.showEditModal} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} closeEditModal={this.closeEditModal} employees={this.state.employees} employeeId={this.state.employeeId}/>
+		              	<EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} openCreateShiftModal={this.openCreateShiftModal} deleteShift={this.deleteShift} showWorkingEmployees={this.showWorkingEmployees}/>
+	              	</div>
+	            : <div>
+					{ this.state.showingAllEmployees ?
+						<div>
+							<HireEmployeeModal hireEmployee={this.hireEmployee} hideHireEmployeeModal={this.hideHireEmployeeModal}showHireModal={this.state.showHireModal} />
+							<EmployeeList employees={this.state.employees} showEmployeeProfile={this.showEmployeeProfile} showWorkingEmployees={this.showWorkingEmployees} showHireEmployeeModal={this.showHireEmployeeModal}
+								deleteEmployee={this.deleteEmployee} doLogout={this.props.doLogout} message={this.props.message}/>
+						</div>
+					:	<WhosWorkingList whosWorking={this.state.whosWorking} showEmployeeProfile={this.showEmployeeProfile} showAllEmployees={this.showAllEmployees} doLogout={this.props.doLogout}/>
+					}
+					</div>	
 				}
 			</div>
 		);
