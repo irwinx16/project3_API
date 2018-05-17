@@ -213,6 +213,16 @@ class App extends Component {
     this.setState({
       shifts: [...this.state.shifts, shiftsParsed.new_shift]
     })
+    // we have to get whosworking again to update the page as soon as a shift is added
+     this.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
   deleteShift = async (e) => {
     const id = e.currentTarget.parentNode.id;
@@ -224,6 +234,16 @@ class App extends Component {
     this.setState({
       shifts: this.state.shifts.filter((shift) => shift.id != id)
     });
+    // we have to get whosworking again to update the page as soon as a shift is deleted
+    this.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
   openCreateShiftModal = () => {
     this.setState({
