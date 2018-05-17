@@ -2,10 +2,12 @@
   display: none;
 }
 .show {
-  position: fixed;
-  display: block;
-  top: 50%;
-  left: 52%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #337ab7;
   color: white;
   width: 300px;

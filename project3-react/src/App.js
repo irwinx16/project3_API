@@ -72,7 +72,8 @@ class App extends Component {
     if (loggedOut.success) {
       this.setState({
         loggedIn: false,
-        logOutMessage: loggedOut.message
+        logOutMessage: loggedOut.message,
+        showingEmployee: false
       })
     }
     return loggedOut;
