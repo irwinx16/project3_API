@@ -17,14 +17,13 @@ class EmployeeContainer extends Component {
 	componentWillReceiveProps(nextProps){
 		this.setState({
 			employees: nextProps.employees,
-			whosWorking: nextProps.whosWorking
+			whosWorking: nextProps.whosWorking,
 		});
 	}
 	componentDidMount() {
 		this.setState({
 			employees: this.props.employees,
 			whosWorking: this.props.whosWorking
-
 		})
 	}
 	hideHireEmployeeModal = () => {

@@ -6,7 +6,6 @@ import { NavItem } from 'react-bootstrap';
 import './style.css';
 
 const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList, doLogout}) => {
-	console.log(whosWorking)
 	const WhosWorkingList = whosWorking.map((employee, i) => {
 		return (
 			<div className="container" key={employee.id}>
