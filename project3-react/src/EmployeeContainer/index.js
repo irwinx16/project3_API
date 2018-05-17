@@ -198,16 +198,6 @@ class EmployeeContainer extends Component {
 	setMessageTimeout = () => {
 		setTimeout(this.props.makeBlankMessage, 1000);
 	}
-	makeBlankMessage = () => {
-	    this.setState({
-	      message: ''
-	    });
-	}
-	makeBlankLogOutMessage = () => {
-	    this.setState({
-	      logOutMessage: ''
-	    });
-	}
 
 	render() {
 		{this.setMessageTimeout()}
