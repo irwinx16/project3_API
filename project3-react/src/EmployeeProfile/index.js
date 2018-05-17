@@ -6,7 +6,7 @@ import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
 import './style.css';
 
-const EmployeeProfile = ({employees, employeeId, hideEmployeeProfile, shifts, doLogout, openEditModal, openCreateShiftModal, deleteShift, showWorkingEmployees}) => {
+const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout, openEditModal, openCreateShiftModal, deleteShift, showWorkingEmployees}) => {
 
 	const returnEmployee = employees.filter(employee => employee.id == employeeId);
 	const shownEmployee = returnEmployee[0];
@@ -49,7 +49,7 @@ const EmployeeProfile = ({employees, employeeId, hideEmployeeProfile, shifts, do
 		        </Navbar.Header>
 		        <Navbar.Collapse>
 		          <Nav>
-		            <NavItem onClick={hideEmployeeProfile}>
+		            <NavItem onClick={returnToMainPage}>
 		            	Show All Employees
 		            </NavItem>
 		            <NavItem onClick={showWorkingEmployees}>

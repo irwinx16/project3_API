@@ -193,21 +193,11 @@ class App extends Component {
       });
     }
   }
-  makeBlankMessage = () => {
-      this.setState({
-        message: ''
-      });
-  }
-  makeBlankLogOutMessage = () => {
-      this.setState({
-        logOutMessage: ''
-      });
-  }
   render() {
     return (
       <div className="App">
         {this.state.loggedIn ?
-          <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} shifts={this.state.shifts} getWhosWorking={this.getWhosWorking} doLogout={this.doLogout} message={this.state.message} employeeId={this.state.employeeId} makeBlankMessage={this.makeBlankMessage}/>
+          <EmployeeContainer employees={this.state.employees} whosWorking={this.state.whosWorking} shifts={this.state.shifts} getWhosWorking={this.getWhosWorking} doLogout={this.doLogout} message={this.state.message} employeeId={this.state.employeeId} />
         : <LoginRegister doLogin={this.doLogin} doRegister={this.doRegister} logInErrorMessage={this.state.logInErrorMessage} logOutMessage={this.state.logOutMessage} makeBlankLogOutMessage={this.makeBlankLogOutMessage}/>
         }
       </div>

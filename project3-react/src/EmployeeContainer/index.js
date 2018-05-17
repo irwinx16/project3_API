@@ -23,7 +23,6 @@ class EmployeeContainer extends Component {
 		    showCreateShiftModal: false
 		}
 	}
-	// UPDATE STATE WITH ITEMS FROM APP.JS
 	componentWillReceiveProps(nextProps){
 		this.setState({
 			employees: nextProps.employees,
@@ -41,16 +40,12 @@ class EmployeeContainer extends Component {
 		})
 	}
 
-	// SHOW / HIDE MODALS
-
-	// SHOW / HIDE ADD EMPLOYEE MODAL 
-	showHireEmployeeModal = () => {
-		this.setState({showHireModal: true});
-	}
 	hideHireEmployeeModal = () => {
 		this.setState({showHireModal: false});
 	}
-	// SHOW ALL EMPLOYEES VS SHOW PRESENT EMPLOYEES
+	showHireEmployeeModal = () => {
+		this.setState({showHireModal: true});
+	}
 	showAllEmployees = () => {
 		this.setState({showingAllEmployees: true});
 	}
@@ -60,68 +55,74 @@ class EmployeeContainer extends Component {
 			showingEmployeeProfile: false
 		});
 	}
-	// SHOW / HIDE EDIT EMPLOYEE MODAL
-	openEditModal = (e) => {
-	    const employeeID = parseInt(this.state.employeeId)
-	    const editedEmployee = this.state.employees.find((employee) => {
-	      return employee.id === employeeID
-	    })
-	    this.setState({
-	      showEditModal: true,
-	      editedEmployee: editedEmployee
-	    });
+	setMessageTimeout = () => {
+		setTimeout(this.props.makeBlankMessage, 1000);
 	}
 	closeEditModal = () => {
 	    this.setState({
 	      showEditModal: false
 	    })
 	}
-	// SHOW / HIDE ADD SHIFT MODAL
-	openCreateShiftModal = () => {
-	    this.setState({
-	      showCreateShiftModal: true
-	    })
-	}
-	closeCreateShiftModal = () => {
-	    this.setState({
-	      showCreateShiftModal: false
-	    })
-	}
-	// SHOW / HIDE EMPLOYEE PROFILE
-	showEmployeeProfile = (e) => {
-    	const id = e.currentTarget.parentNode.parentNode.id;
-    	this.setState({
-    	  showingEmployeeProfile: true,
-    	  employeeId: id
-    	})
-  	}
-	hideEmployeeProfile = () => {
-    	this.setState({
-     		showingEmployeeProfile: false
-    	})
-	}
+  editEmployee = async (editedEmployee) => {
+    const id = this.state.employeeId;
+    const employee = await fetch("http://localhost:9292/employees/" + id, {
+      method: 'PUT',
+      body: JSON.stringify(editedEmployee)
+    })
+    const response = await employee.json()
 
-	// EMPLOYEE CRUD METHODS
+    const editedEmployeeIndex = this.state.employees.findIndex((employee) => {
+      return employee.id == response.updated_employee.id;
+    });
+    this.state.employees[editedEmployeeIndex] = response.updated_employee;
+    this.setState({
+      editedEmployee: `${response.updated_employee}`
+    })
+  }
+  deleteShift = async (e) => {
+    const id = e.currentTarget.parentNode.parentNode.id;
+    const shifts = await fetch (`http://localhost:9292/shifts/${id}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    });
 
-	// EMPLOYEE EDIT
-	editEmployee = async (editedEmployee) => {
-	    const id = this.state.employeeId;
-	    const employee = await fetch("http://localhost:9292/employees/" + id, {
-	      method: 'PUT',
-	      body: JSON.stringify(editedEmployee)
-	    })
-	    const response = await employee.json()
-
-	    const editedEmployeeIndex = this.state.employees.findIndex((employee) => {
-	      return employee.id == response.updated_employee.id;
-	    });
-	    this.state.employees[editedEmployeeIndex] = response.updated_employee;
-	    this.setState({
-	      editedEmployee: `${response.updated_employee}`
-	    })
-	}
-	// EMPLOYEE ADD
-	hireEmployee = async (employee, e) => {
+    this.setState({
+      shifts: this.state.shifts.filter((shift) => shift.id != id)
+    });
+    // we have to get whosworking again to update the page as soon as a shift is deleted
+    this.props.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+  openCreateShiftModal = () => {
+    this.setState({
+      showCreateShiftModal: true
+    })
+  }
+  closeCreateShiftModal = () => {
+    this.setState({
+      showCreateShiftModal: false
+    })
+  }
+  showEmployeeProfile = (e) => {
+    const id = e.currentTarget.parentNode.parentNode.id;
+    this.setState({
+      showingEmployeeProfile: true,
+      employeeId: id
+    })
+  }
+  returnToMainPage = () => {
+    this.setState({
+      showingEmployeeProfile: false
+    })
+  }
+  hireEmployee = async (employee, e) => {
       e.preventDefault();
       const employeesJson = await fetch ('http://localhost:9292/employees', {
         credentials: 'include',
@@ -132,73 +133,60 @@ class EmployeeContainer extends Component {
       this.setState({
         employees: [...this.state.employees, employeesParsed.new_employee]
       })
-  	}
-  	// EMPLOYEE DELETE
-	deleteEmployee = async (e) => {
-	    const id = e.currentTarget.parentNode.parentNode.id;
-	    const employees = await fetch (`http://localhost:9292/employees/${id}`, {
-	      credentials: 'include',
-	      method: 'DELETE'
-	    });
+  }
+  deleteEmployee = async (e) => {
+    const id = e.currentTarget.parentNode.parentNode.id;
+    const employees = await fetch (`http://localhost:9292/employees/${id}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    });
 
-	    this.setState({
-	      employees: this.state.employees.filter((employee) => employee.id != id)
-	    });
-	}
-	// SHIFT CRUD METHODS
-  	
-  	// SHIFT ADD
-	addShift = async (shift, e) => {
-	    e.preventDefault();
-	    const shiftsJson = await fetch ('http://localhost:9292/shifts', {
-	      credentials: 'include',
-	      method: 'POST',
-	      body: JSON.stringify(shift)
-	    })
-	    const shiftsParsed = await shiftsJson.json();
-	    this.setState({
-	      shifts: [...this.state.shifts, shiftsParsed.new_shift]
-	    })
-	    // we have to get whosworking again to update the page as soon as a shift is added
-	    this.props.getWhosWorking()
-	      .then((response) => {
-	        this.setState({
-	          whosWorking: response.whosworking
-	        })
-	      })
-	      .catch((err) => {
-	        console.log(err);
-	      })
-	}
-
-	// SHIFT DELETE
-	deleteShift = async (e) => {
-	    const id = e.currentTarget.parentNode.parentNode.id;
-	    const shifts = await fetch (`http://localhost:9292/shifts/${id}`, {
-	      credentials: 'include',
-	      method: 'DELETE'
-	    });
-
-	    this.setState({
-	      shifts: this.state.shifts.filter((shift) => shift.id != id)
-	    });
-	    // we have to get whosworking again to update the page as soon as a shift is deleted
-	    this.props.getWhosWorking()
-	      .then((response) => {
-	        this.setState({
-	          whosWorking: response.whosworking
-	        })
-	      })
-	      .catch((err) => {
-	        console.log(err);
-	      })
-	}
-
-	// MESSAGE TIMEOUTS	
-	setMessageTimeout = () => {
-		setTimeout(this.props.makeBlankMessage, 1000);
-	}
-
+    this.setState({
+      employees: this.state.employees.filter((employee) => employee.id != id)
+    });
+  }
+  openEditModal = (e) => {
+    const employeeID = parseInt(this.state.employeeId)
+    const editedEmployee = this.state.employees.find((employee) => {
+      return employee.id === employeeID
+    })
+    this.setState({
+      showEditModal: true,
+      editedEmployee: editedEmployee
+    });
+  }
+  addShift = async (shift, e) => {
+    e.preventDefault();
+    const shiftsJson = await fetch ('http://localhost:9292/shifts', {
+      credentials: 'include',
+      method: 'POST',
+      body: JSON.stringify(shift)
+    })
+    const shiftsParsed = await shiftsJson.json();
+    this.setState({
+      shifts: [...this.state.shifts, shiftsParsed.new_shift]
+    })
+    // we have to get whosworking again to update the page as soon as a shift is added
+     this.props.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+  makeBlankMessage = () => {
+    this.setState({
+      message: ''
+    });
+  }
+  makeBlankLogOutMessage = () => {
+    this.setState({
+      logOutMessage: ''
+    });
+  }
 	render() {
 		{this.setMessageTimeout()}
 		return (
@@ -207,7 +195,7 @@ class EmployeeContainer extends Component {
 					<div>
 						<CreateShiftModal showCreateShiftModal={this.state.showCreateShiftModal} openCreateShiftModal={this.openCreateShiftModal} closeCreateShiftModal={this.closeCreateShiftModal} addShift={this.addShift} employeeId={this.state.employeeId}/>
 		              	<EditModal showEditModal={this.state.showEditModal} editedEmployee={this.state.editedEmployee} editEmployee={this.editEmployee} closeEditModal={this.closeEditModal} employees={this.state.employees} employeeId={this.state.employeeId}/>
-		              	<EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} hideEmployeeProfile={this.hideEmployeeProfile}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} openCreateShiftModal={this.openCreateShiftModal} deleteShift={this.deleteShift} showWorkingEmployees={this.showWorkingEmployees}/>
+		              	<EmployeeProfile employees={this.state.employees} employeeId={this.state.employeeId} returnToMainPage={this.returnToMainPage}  shifts={this.state.shifts} doLogout={this.doLogout} openEditModal={this.openEditModal} openCreateShiftModal={this.openCreateShiftModal} deleteShift={this.deleteShift} showWorkingEmployees={this.showWorkingEmployees}/>
 	              	</div>
 	            : <div>
 					{ this.state.showingAllEmployees ?
