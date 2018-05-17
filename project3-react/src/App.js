@@ -72,7 +72,8 @@ class App extends Component {
     if (loggedOut.success) {
       this.setState({
         loggedIn: false,
-        logOutMessage: loggedOut.message
+        logOutMessage: loggedOut.message,
+        showingEmployee: false
       })
     }
     return loggedOut;
@@ -208,6 +209,7 @@ class App extends Component {
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify(shift)
+<<<<<<< HEAD
     }).then(r=> { console.log("fetch is done, response r = ", r);
       this.getWhosWorking()
         .then(response => {
@@ -223,6 +225,23 @@ class App extends Component {
     //   shifts: [...this.state.shifts, shiftsParsed.new_shift]
     // })
     // console.log(this.state, "to see if it's there in addShift after adding in App.js")
+=======
+    })
+    const shiftsParsed = await shiftsJson.json();
+    this.setState({
+      shifts: [...this.state.shifts, shiftsParsed.new_shift]
+    })
+    // we have to get whosworking again to update the page as soon as a shift is added
+     this.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+>>>>>>> 434dc4e1661f8a05469be5be2aacb668d4bce6d7
   }
   deleteShift = async (e) => {
     const id = e.currentTarget.parentNode.parentNode.id;
@@ -234,6 +253,16 @@ class App extends Component {
     this.setState({
       shifts: this.state.shifts.filter((shift) => shift.id != id)
     });
+    // we have to get whosworking again to update the page as soon as a shift is deleted
+    this.getWhosWorking()
+      .then((response) => {
+        this.setState({
+          whosWorking: response.whosworking
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
   openCreateShiftModal = () => {
     this.setState({

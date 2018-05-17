@@ -14,8 +14,6 @@ class Shift < ActiveRecord::Base
 						 )
 		# Then we return a simple true or false if there are or aren't any shifts
 		shifts.any?
+		end
+
 	end
-
-
-
-end
