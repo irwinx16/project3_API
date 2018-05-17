@@ -90,7 +90,6 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
-
       this.getEmployers()
       .then((response) => {
         this.setState({
@@ -152,7 +151,6 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
-
       this.getEmployers()
       .then((response) => {
         this.setState({
@@ -162,7 +160,6 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
-
       this.getShifts()
       .then((response) => {
         this.setState({
@@ -172,7 +169,6 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       })
-
       this.getWhosWorking()
       .then((response) => {
         this.setState({

@@ -9,7 +9,7 @@ const WhosWorkingList = ({whosWorking, showEmployeeProfile, showAllEmployees, do
 	const WhosWorkingList = whosWorking.map((employee, i) => {
 		return (
 			<div className="container" key={employee.id}>
-		    <div className="row-present" id={employee.id}>
+		  	<div className="row-present" id={employee.id}>
 		    	<div className="box id">
 		       	{employee.id}
 		      </div>
@@ -24,24 +24,24 @@ const WhosWorkingList = ({whosWorking, showEmployeeProfile, showAllEmployees, do
 	return (
 		<div>
 			<Navbar inverse collapseOnSelect>
-		        <Navbar.Header>
-		          <Navbar.Brand>
-		            <a href="#">EMS</a>
-		          </Navbar.Brand>
-		          <Navbar.Toggle />
-		        </Navbar.Header>
-		        <Navbar.Collapse>
-		          <Nav>
-		            <NavItem onClick={showAllEmployees}>
-		            	Show All Employees
-		            </NavItem>
-		          </Nav>
-		          <Nav pullRight>
-		            <NavItem onClick={doLogout}>
-		            	Log Out
-		            </NavItem>
-		          </Nav>
-		        </Navbar.Collapse>
+		  	<Navbar.Header>
+		      <Navbar.Brand>
+		        <a href="#">EMS</a>
+		      </Navbar.Brand>
+		      <Navbar.Toggle />
+		  	</Navbar.Header>
+		  	<Navbar.Collapse>
+		      <Nav>
+		       	<NavItem onClick={showAllEmployees}>
+		        	Show All Employees
+		       	</NavItem>
+		      </Nav>
+		      <Nav pullRight>
+		        <NavItem onClick={doLogout}>
+		          Log Out
+		        </NavItem>
+		      </Nav>
+		  	</Navbar.Collapse>
 		    </Navbar>
 			<h2> Present Employees: </h2>
 			<div className="container">
