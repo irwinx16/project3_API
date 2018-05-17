@@ -6,11 +6,10 @@ import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
 import './style.css';
 
-const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout, openEditModal, openCreateShiftModal, deleteShift}) => {
+const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLogout, openEditModal, openCreateShiftModal, deleteShift, showWorkingEmployees}) => {
 
 	const returnEmployee = employees.filter(employee => employee.id == employeeId);
 	const shownEmployee = returnEmployee[0];
-
 	const employeeShifts = shifts.filter(shift => shift.employee_id == employeeId);
 
 	// the Start of Shift and End of Shift code below looks messy
@@ -42,31 +41,34 @@ const EmployeeProfile = ({employees, employeeId, returnToMainPage, shifts, doLog
 	return (
 		<div>
 			<Navbar inverse collapseOnSelect>
-		  	<Navbar.Header>
-		       <Navbar.Brand>
-		          <a href="#">EMS</a>
-		       </Navbar.Brand>
-		       <Navbar.Toggle />
-		  	</Navbar.Header>
-		    <Navbar.Collapse>
-		      <Nav>
-		        <NavItem onClick={returnToMainPage}>
-		        	Show All Employees
-		        </NavItem>
-		        <NavItem onClick={openEditModal}>
-		          Edit {shownEmployee.name}'s Profile
-		        </NavItem>
-		        <NavItem onClick={openCreateShiftModal}>
-		          Assign {shownEmployee.name} a New Shift
-		        </NavItem>
-		      </Nav>
-		      <Nav pullRight>
-		        <NavItem onClick={doLogout}>
-		          Log Out
-		        </NavItem>
-		      </Nav>
-		    </Navbar.Collapse>
-		  </Navbar>
+		        <Navbar.Header>
+		          <Navbar.Brand>
+		            <a href="#">EMS</a>
+		          </Navbar.Brand>
+		          <Navbar.Toggle />
+		        </Navbar.Header>
+		        <Navbar.Collapse>
+		          <Nav>
+		            <NavItem onClick={returnToMainPage}>
+		            	Show All Employees
+		            </NavItem>
+		            <NavItem onClick={showWorkingEmployees}>
+		            	Show Present Employees
+		            </NavItem>
+		            <NavItem onClick={openEditModal}>
+		            	Edit {shownEmployee.name}'s Profile
+		            </NavItem>
+		            <NavItem onClick={openCreateShiftModal}>
+		            	Assign {shownEmployee.name} a New Shift
+		            </NavItem>
+		          </Nav>
+		          <Nav pullRight>
+		            <NavItem onClick={doLogout}>
+		              Log Out
+		            </NavItem>
+		          </Nav>
+		        </Navbar.Collapse>
+		    </Navbar>
 			<h1> {shownEmployee.name}'s Profile: </h1>
 			<h3>
 				<b> Name: </b> {shownEmployee.name} <br/>

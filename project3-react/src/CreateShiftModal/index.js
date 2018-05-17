@@ -86,7 +86,7 @@ class CreateShiftModal extends Component {
 					<input type="date" placeholder="End of Shift Date (YYYY-MM-DD)" onChange={this.updateEndShiftDate} /> <br/>
 					<input type="time" defaultValue="" placeholder="End of Shift Time (HH:MM:SS)" onChange={this.updateEndShiftTime} /> <br/>
 					<input type="text" defaultValue="" placeholder="Shift Notes" onChange={this.updateNotes} /> <br/>
-					<button onClick={this.props.closeCreateShiftModal}>Assign Shift</button> <br/>
+					<button type="submit" onClick={this.props.closeCreateShiftModal}>Assign Shift</button> <br/>
 					<button type="reset" value="Reset">Reset</button>
 				</form>
 			</div>

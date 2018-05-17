@@ -5,8 +5,7 @@ import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
 import './style.css';
 
-const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList, doLogout}) => {
-	console.log(whosWorking)
+const WhosWorkingList = ({whosWorking, showEmployeeProfile, showAllEmployees, doLogout}) => {
 	const WhosWorkingList = whosWorking.map((employee, i) => {
 		return (
 			<div className="container" key={employee.id}>
@@ -25,25 +24,25 @@ const WhosWorkingList = ({whosWorking, showEmployeeProfile, showEmployeeList, do
 	return (
 		<div>
 			<Navbar inverse collapseOnSelect>
-		    <Navbar.Header>
-		      <Navbar.Brand>
-		        <a href="#">EMS</a>
-		      </Navbar.Brand>
-		      <Navbar.Toggle />
-		    </Navbar.Header>
-		    <Navbar.Collapse>
-		      <Nav>
-		      	<NavItem onClick={showEmployeeList}>
-		       	Show All Employees
-		      	</NavItem>
-		      </Nav>
-		      	<Nav pullRight>
-		          <NavItem onClick={doLogout}>
-		            Log Out
-		        	</NavItem>
-		      	</Nav>
-		    </Navbar.Collapse>
-		  </Navbar>
+		        <Navbar.Header>
+		          <Navbar.Brand>
+		            <a href="#">EMS</a>
+		          </Navbar.Brand>
+		          <Navbar.Toggle />
+		        </Navbar.Header>
+		        <Navbar.Collapse>
+		          <Nav>
+		            <NavItem onClick={showAllEmployees}>
+		            	Show All Employees
+		            </NavItem>
+		          </Nav>
+		          <Nav pullRight>
+		            <NavItem onClick={doLogout}>
+		            	Log Out
+		            </NavItem>
+		          </Nav>
+		        </Navbar.Collapse>
+		    </Navbar>
 			<h2> Present Employees: </h2>
 			<div className="container">
 		    <div className="wrapper-present">
