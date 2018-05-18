@@ -1,5 +1,5 @@
 # EMS
-Employee Management Software
+Employee Management Software: Manage your employees with our API!
 
 ## User Story
 
@@ -122,5 +122,3 @@ Shift Table
 - End
 - Notes
 - Employee_ID
-
-
