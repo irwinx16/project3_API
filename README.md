@@ -3,15 +3,15 @@ Employee Management Software
 
 ## User Story
 
-Employer should be able to login. 
+Employer should be able to register and login. 
 - Be able to see information of the present employees at the moment of login. 
 - Be able to click on each employee and see that employee information
-(name, position, notes, availability, present and shift).
+(name, position, notes, availability, and shifts).
 - Be able to see all the employees listed by name.
 - Be able to edit the information of each employee.
 - Be able to add new employees.
 - Be able to delete employees. 
-- Be able to add shift (breakfast, lunch, dinner, brunch).
+- Be able to add shift (breakfast, lunch, dinner, brunch, etc.).
 - Be able to assign shifts to employees. 
 
 ## How to Use the API
@@ -95,7 +95,7 @@ https://ems-api.herokuapp.com/employers/:id
 
 
 
-## DATA
+## DATA TABLES
 
 Employee Table
 
@@ -122,10 +122,5 @@ Shift Table
 - End
 - Notes
 - Employee_ID
-
-
-## WIREFRAME
-
-![Wireframe](Wireframe/WireFrame.jpeg)
 
 
