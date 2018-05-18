@@ -100,9 +100,9 @@ class EmployeeContainer extends Component {
     });
   }
   closeEditModal = () => {
-      this.setState({
-        showEditModal: false
-      })
+    this.setState({
+      showEditModal: false
+    })
   }
 
   // EMPLOYEE CRUD METHODS
@@ -194,7 +194,7 @@ class EmployeeContainer extends Component {
   }
 
   render() {
-    
+
     return (
       <div>
         {this.state.showingEmployeeProfile ?
