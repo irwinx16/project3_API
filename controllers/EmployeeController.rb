@@ -5,10 +5,6 @@ class EmployeeController < ApplicationController
 
     if(payload_body != "")
       @payload = JSON.parse(payload_body).symbolize_keys
-
-      puts "-----------------------------------------------HERE IS OUR PAYLOAD"
-      pp @payload
-      puts "-----------------------------------------------------------------"
     end
 	end
 
