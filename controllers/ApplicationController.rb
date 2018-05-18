@@ -16,7 +16,7 @@ class ApplicationController < Sinatra::Base
 	get '/' do
 		{
 			success: false,
-			message: "Please consult the API documentation."
+			message: "Please consult the API documentation at: https://github.com/irwinx16/project3_API"
 		}.to_json
 	end
 

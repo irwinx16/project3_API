@@ -1,4 +1,4 @@
-# Project 3
+# EMS
 Employee Management Software
 
 ## User Story
@@ -14,7 +14,88 @@ Employer should be able to login.
 - Be able to add shift (breakfast, lunch, dinner, brunch).
 - Be able to assign shifts to employees. 
 
-## Data
+## How to Use the API
+
+### GET ROUTES
+
+#### Get Employees
+
+https://ems-api.herokuapp.com/employees
+
+#### Get Employees Currently Working
+
+https://ems-api.herokuapp.com/employees/whosworking
+
+#### Get Shifts
+
+https://ems-api.herokuapp.com/shifts
+
+#### Get Employers
+
+https://ems-api.herokuapp.com/employers
+
+#### Log Out
+
+https://ems-api.herokuapp.com/logout
+
+### SHOW ROUTES
+
+#### Show Employees
+
+https://ems-api.herokuapp.com/employees/:id
+
+#### Show Shifts
+
+https://ems-api.herokuapp.com/shifts/:id
+
+#### Show Employee's Shifts
+
+https://ems-api.herokuapp.com/shifts/employee/:employee_id
+
+#### Show Employers
+
+https://ems-api.herokuapp.com/employers/:id
+
+### POST ROUTES
+
+#### Log In
+
+https://ems-api.herokuapp.com/login
+
+#### Register
+
+https://ems-api.herokuapp.com/register
+
+#### Add Employee
+
+https://ems-api.herokuapp.com/employees
+
+#### Add Shift
+
+https://ems-api.herokuapp.com/shifts
+
+#### Add Employer
+
+https://ems-api.herokuapp.com/employers
+
+### DELETE ROUTES
+
+#### Delete Employee
+
+https://ems-api.herokuapp.com/employees/:id
+
+#### Delete Shift
+
+https://ems-api.herokuapp.com/shifts/:id
+
+#### Delete Employer
+
+https://ems-api.herokuapp.com/employers/:id
+
+
+
+
+## DATA
 
 Employee Table
 
@@ -23,10 +104,7 @@ Employee Table
 - Position
 - Notes
 - Availability
-- Present 
-- Shift_ID
-- (Picture)
-- (How long have been working) (store data as start date)
+- Working?
 
 Employer Table
 
@@ -46,15 +124,8 @@ Shift Table
 - Employee_ID
 
 
-WhosWorking Table
+## WIREFRAME
 
-- ID
-- Employee_ID
-- Shift_ID (enum)
-- Date
-
-
-## Wireframe
 ![Wireframe](Wireframe/WireFrame.jpeg)
 
 
