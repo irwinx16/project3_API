@@ -3,10 +3,12 @@ class ApplicationController < Sinatra::Base
 	require 'bundler'
 	Bundler.require()
 
-	ActiveRecord::Base.establish_connection(
-		:adapter => 'postgresql',
-		:database => 'employer'
-	)
+	require './config/environments'
+
+	# ActiveRecord::Base.establish_connection(
+	# 	:adapter => 'postgresql',
+	# 	:database => 'employer'
+	# )
 	use Rack::Session::Cookie,	:key => 'rack.session',
 		:path => '/',
 		:secret => 'your_secret'
